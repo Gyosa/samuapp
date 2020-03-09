@@ -1,0 +1,16 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<span> User ID with arg : [% id %]</sapn>
+
+
+<ul>
+	<li>User ID : [% utilisateur.utilisateur_id |html %]</li>
+	<li>User Auth : [% utilisateur.utilisateur_auth |html %]</li>
+	<li>User Rôle : [% #utilisateur.utilisateur_role |html %]</li>
+	<li>User Nom : [% utilisateur.utilisateur_nom |html %]</li>
+	<li>User Prénom : [% utilisateur.utilisateur_prenom |html %]</li>
+	<li>User Mail : [% utilisateur.utilisateur_mail |html %]</li>
+	<li>User Téléphone : [% utilisateur.utilisateur_phone |html %]</li>
+</ul>
+
+<span>Show User planning appartenance !!!</span>

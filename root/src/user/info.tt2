@@ -1,0 +1,21 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+<div class="flex">
+  <div class="row">
+	Utilisateur Id : [% utilisateur.utilisateur_id | html %]
+  </div>
+  <div class="row">
+	Utilisateur Role : [% utilisateur.utilisateur_role | html %]
+  </div>
+  <div class="row">
+	Utilisateur Nom : [% utilisateur.utilisateur_nom | html %]
+  </div>
+  <div class="row">
+	Utilisateur Prénom : [% utilisateur.utilisateur_prenom | html %]
+  </div>
+  <div class="row">
+	Utilisateur Mail : [% utilisateur.utilisateur_mail | html %]
+  </div>
+  <div class="row">
+	Utilisateur Téléphone : [% utilisateur.utilisateur_phone | html %]
+  </div>
+</div>

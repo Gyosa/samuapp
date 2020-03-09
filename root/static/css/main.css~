@@ -1,0 +1,50 @@
+#outer {
+	padding: 0px;
+}
+
+#header {
+    text-align: center;
+	background-color: #ddd;
+}
+#header h1 {
+    margin: 0;
+}
+#header img {
+    float: right;
+}
+.navbar {
+	margin: 0px;
+}
+
+#footer {
+    text-align: center;
+    font-style: italic;
+    padding-top: 20px;
+}
+#menu {
+    background-color: #ddd;
+    font-weight: bold;
+}
+#menu ul {
+    list-style: none;
+    float: left;
+    margin: 0;
+    padding: 0 0 100% 5px;
+    font-weight: normal;
+    background-color: #ddd;
+    width: 100px;
+}
+#bodyblock {
+    margin-top: 100px;
+}
+#content {
+    position: relative;
+    margin: 10px;
+
+}
+.message {
+    color: #390;
+}
+.error {
+    color: #f00;
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" [%#
+    %]"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  <head>
+	<meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+	[% INCLUDE "layout/script.tt2" %]
+
+		
+	<title>[% template.title or "My Catalyst App!" %]</title>
+	
+	<link rel="stylesheet" href="[% c.uri_for('/static/css/main.css') %]" />
+	<link rel="stylesheet" href="[% c.uri_for('/static/css/sidebar.css') %]" />
+	
+</head>
+ 
+<body>
+<div id="outer" class="container-fluid">
+	
+<div id="header">
+  <nav class="navbar navbar-fixed-top">
+	<div class="col-12 d-flex justify-content-between d-flex p-2 max-width">
+	  <!-- left header-->
+	  <div class="p-2">
+		<div class="col-12 d-flex justify-content-between d-flex p-2 max-width"> 
+		  <!-- toggle button collaps -->
+		  <div class="container-fluid">
+			<button type="button" id="sidebarCollapse" class="btn btn-info">
+              <i class="fas fa-align-left"></i>
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+			</button>
+          </div>
+		  [%# Your logo could go here -%]
+		  <img src="[% c.uri_for('/static/images/btn_88x31_powered.png') %]" />
+		</div>
+	  </div>
+	  <!-- middle header-->
+	  <div class="p-2">
+	    [%# Insert the page title -%]
+	  	<h1>[% template.title or site.title %]</h1>
+	  </div>
+	  <!-- right header -->
+	  <div class="p-2">
+		<div class="col-12 d-flex justify-content-between d-flex p-2 max-width">
+		  <div class="p-2">
+			[% IF c.user_exists %]
+			<div class="row flex">Utilisataur Name : [% c.user.utilisateur_auth %]</div>
+			<div class="row flex">Utilisataur Rôle : [% c.user.utilisateur_role %]</div>
+			[% END %]
+		  </div>
+		  <div class="p-2 dropdown">
+			<a href="#" id="imageDropdown" data-toggle="dropdown" style="padding: 5px">
+			  <img src="[% c.uri_for('/static/images/account_logo_button.jpg') %]" height="42" width="52"/>
+			</a>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="[% c.uri_for('/Logout') %]">Logout</a></li>
+			</ul>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </nav>
+</div>
+ 
+<div id="bodyblock" class="wrapper">  
+<div id="menu" >
+  <nav id="sidebar">
+	<div class="sidebar-header">
+	  Navigation:
+	</div>
+	
+    <ul class="list-unstyle components">
+      <li><a href="[% c.uri_for('/admin/users/list) %]">A. User</a></li>
+	  <li><a href="[% c.uri_for('/admin/planning/list') %]">A. Planning</a></li> 
+      <li><a href="[% c.uri_for('/')%]" title="Catalyst Welcome Page">Welcome</a></li>
+    </ul>
+  </nav>
+</div><!-- end menu -->
+
+
+  <div id="content" class="col-12">
+    [%# Status and error messages %]
+    <span class="message">[% status_msg %]</span>
+    <span class="error">[% error_msg %]</span>
+    [%# This is where TT will stick all of your template's contents. -%]
+    [% content %]
+  </div><!-- end content -->
+</div><!-- end bodyblock -->
+ 
+<div id="footer">Copyright (c) your name goes here</div>
+</div><!-- end outer -->
+
+<script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+            });
+        });
+</script>
+
+</body>
+</html>

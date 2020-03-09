@@ -1,0 +1,7 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+<p>
+user id = [% id %]
+</p>
+<p>
+user auth = [% auth %]
+</p>

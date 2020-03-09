@@ -1,0 +1,18 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+<span>
+  <a href="[% c.uri_for(c.controller.action_for('edit_info_planning')) %]?planning_id=[% planning.planning_id %]">Modfifer Information</a>
+</span>
+
+
+<div class="row">
+
+  <div class="col-12">
+	<ul>
+	  <li>Info Planning ID : [% infoplanning.infoplanning_id |html %]</li>
+	  <li>info Planning plannind ID : [% infoplanning.infoplanning_planning_id |html %]</li>
+	  <li>Info Planning jours shouaités : [% infoplanning.infoplanning_souhait_jour |html %]</li>
+	  <li>Info Planning nuit souhaitées : [% infoplanning.infoplanning_souhait_nuit |html %]</li>
+	</ul>
+  </div>
+</div>
+  

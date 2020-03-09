@@ -1,0 +1,114 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<span> User ID with arg : [% id %]</span>
+
+<div class="row">
+
+  <div class="col-6">
+	<ul>
+	  <li>Planning ID : [% planning.planning_id |html %]</li>
+	  <li>Planning Type : [% planning.planning_type |html %]</li>
+	  <li>Planning Start Date : [% planning.planning_start_date |html %]</li>
+	  <li>Planning End Date : [% planning.planning_end_date |html %]</li>
+	</ul>
+  </div>
+  
+  <div class="col-6">
+	Show Planning user appartenance
+	
+	<ul style="list-style-type:none; width:100%">
+	  <li>
+		<div class="row">
+		  <div class="col-6">
+			Prénom Nom
+		  </div>
+		  <div class="col-6">
+			Nombre de créneau
+		  </div>
+		</div>
+	  </li>
+	  [% FOREACH utilisateur = participants %]
+	  <li>
+		<div class="row">
+		  <div class="col-6">
+			<a href="[% c.uri_for('/admin/users/show') %]?user_id=[% utilisateur.0.utilisateur_id %]">
+			  [% utilisateur.0.utilisateur_prenom %] [% utilisateur.0.utilisateur_nom %]
+			</a>
+		  </div>
+		  <div class="col-6">
+			[% utilisateur.1 %]
+		  </div>
+		</div>
+	  </li>
+	  [% END %]
+	</ul>
+  </div>
+
+<span> Nombre de créneaux: [% creneaux.size %] </span>
+</div class="row">
+<table id="liste_creneaux" class="table table-condensed table-responsive">
+  <thead>
+	<tr>
+	  <th>N°id</th>
+	  <th>Créneau Type</th>
+	  <th>Start Date</th>
+	  <th>End Date</th>
+	  <th>Nombre de personnes</th>
+	  <th></th>
+	</tr>
+  </thead>
+  
+  <tbody>
+	[% FOREACH creneau = creneaux %]
+	<tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
+	  <td>[% creneau.creneau_id |html %]</td>
+	  <td>[% creneau.creneau_type |html %]</td>
+	  <td>[% creneau.creneau_start_datetime |html %]</td>
+	  <td>[% creneau.creneau_end_datetime |html %]</td>
+	  <td>[% creneau.creneau_nbpersonnes | html %]</td>
+	  <td style="white-sapce: nowrap">
+		<a href="[% c.uri_for(c.controller.action_for('show_wi')) %]?creneau_id=[% creneau.creneau_id |html %]" title="show" class="btn bn-default">
+		  <span class="glyphicon glyphicon-eye-open"></span>
+		</a>
+		<a href="[% c.uri_for(c.controller.action_for('edit')) %]?creneau_id=[% creneau.creneau_id |html %]" title="edit" class="btn bn-default">
+		  <span class="glyphicon glyphicon-pencil"></span>
+		</a>
+		<a href="[% c.uri_for(c.controller.action_for('delete')) %]?creneau_id=[% creneau.creneau_id |html %]" title="delete" class="btn bn-default">
+		  <span class="glyphicon glyphicon-trash"></span>
+		</a>
+	  </td>
+	</tr>
+	[% END %]
+  </tbody>
+  
+</table>
+</div>
+<!-- voir documentation sur <http://datatables.net/manual/index> -->
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#liste_creneaux').DataTable( {
+       "renderer": "bootstrap",
+       "scrollX": true,
+       "autoWidth": false,
+       "columnDefs": [
+         { "orderable": false, "targets": -1 } // la dernière colonne n'est pas triable
+       ],
+      "language": {
+        "lengthMenu": "Afficher _MENU_ lignes par page",
+        "zeroRecords": "Aucun client à afficher",
+        "info": "Page _PAGE_ sur _PAGES_",
+        "infoEmpty": "Aucun client dans la table",
+        "infoFiltered": "(sélection à partir d'un total de _MAX_ clients)",
+        pagingType: 'full',
+        paginate: {
+            first:    'Premier',
+            previous: 'Précédent',
+            next:     'Suivant',
+            last:     'Dernier',
+         },
+      }
+    });
+  $('#liste_creneaux').addClass('table table-striped table-bordered');
+  });
+</script>
+

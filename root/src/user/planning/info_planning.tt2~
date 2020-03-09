@@ -1,0 +1,13 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+<div class="row">
+
+  <div class="col-6">
+	<ul>
+	  <li>Planning ID : [% planning.planning_id |html %]</li>
+	  <li>Planning Type : [% planning.planning_type |html %]</li>
+	  <li>Planning Start Date : [% planning.planning_start_date |html %]</li>
+	  <li>Planning End Date : [% planning.planning_end_date |html %]</li>
+	</ul>
+  </div>
+</div>
+  

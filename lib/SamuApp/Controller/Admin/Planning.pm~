@@ -1,0 +1,131 @@
+package SamuApp::Controller::Admin::Planning;
+use Moose;
+use namespace::autoclean;
+
+use Data::Dumper;
+
+BEGIN { extends 'Catalyst::Controller'; }
+
+=head1 NAME
+
+SamuApp::Controller::Admin::Planning - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller.
+
+=head1 METHODS
+
+=cut
+
+
+=head2 index
+
+=cut
+
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->response->body('Matched SamuApp::Controller::Admin::Planning in Admin::Planning.');
+}
+
+
+sub list :Chained('base') :PathPart('list') :Args(0) {
+	my ( $self, $c ) = @_;
+	my $text = "liste des plannings";
+
+	$c->stash(plannings => [$c->stash->{resultset}->all]);
+
+	$c->stash(template => 'admin/planning/list_planning.tt2', text => $text);
+}
+
+sub base :Chained('/') :PathPart('admin/planning') :CaptureArgs(0) {
+	my ( $self, $c ) = @_;
+
+	# Store the ResultSet in stash so it's available for other methods
+    $c->stash(resultset => $c->model('DB::Planning'));
+ 
+    # Print a message to the debug log
+    $c->log->debug('*** INSIDE BASE METHOD ***');
+}
+
+sub object :Chained('base') :PathPart('') :CaptureArgs(0) {
+	my ($elf, $c) = @_;
+	my $params = $c->request->query_params;
+	my $id = $params->{'planning_id'};
+
+	$c->stash(object => $c->stash->{resultset}->find($id));
+
+	die "User $id not found!" if !$c->stash->{object};
+
+	$c->log->debug("*** INSIDE OBJECT METHOD for obj id=$id ***");
+}
+
+use Types::Standard 'Int';
+sub show_wi :Chained('object') :PathPart('show') :Args(0) QueryParam('planning_id'){
+	my ( $self, $c ) = @_;
+
+	my $params = $c->request->query_params;
+	$c->stash(id => Dumper($params->{'planning_id'}));
+
+	my $planning = $c->stash->{object};
+	$c->stash(planning => $planning);
+
+	#liste des utilisateurs du planning
+	my @participants = $planning->participeplanning_utilisateurs;
+
+	#list des créneau de chaque utilisateur	
+	my @res;
+	for my $user (@participants){
+		my @creneaux = list_creneau_user_per_planning( $self, $c, $planning->planning_id, $user->utilisateur_id );
+		my @temp;
+		push (@temp, $user, scalar(@creneaux));
+		push (@res, \@temp);
+	}
+
+	$c->stash(participants => \@res);
+	#$c->stash(participants => \@participants);	
+	$c->stash(template => 'admin/planning/detail_planning.tt2');
+}
+
+sub list_creneau_user_per_planning {
+	my ( $self, $c, $planning_id, $user_id ) = @_;
+	
+	my $planning = $c->model('DB::Planning')->find($planning_id);
+	my $user = $c->model('DB::Utilisateur')->find($user_id);
+	$c->log->debug("many to many");
+	my $all_creneau_user = $user->remplicreneau_creneaus;
+
+	my %where = ( planning_id => $planning_id);
+	my $creneau_user = $all_creneau_user->search(\%where);
+
+	return $creneau_user;
+	
+}
+
+sub edit :Chained('object') :PathPart('edit') :Args(0) {
+	my ($self, $c) = @_;
+
+}
+
+sub delete :Chained('object') :PathPart('delete') :Args(0) {
+	my ($self, $c) = @_;
+
+}
+
+=encoding utf8
+
+=head1 AUTHOR
+
+hoel,,,
+
+=head1 LICENSE
+
+This library is free software. You can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
+__PACKAGE__->meta->make_immutable;
+
+1;

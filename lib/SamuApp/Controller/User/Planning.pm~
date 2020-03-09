@@ -1,0 +1,47 @@
+package SamuApp::Controller::User::Planning;
+use Moose;
+use namespace::autoclean;
+
+BEGIN { extends 'Catalyst::Controller'; }
+
+=head1 NAME
+
+SamuApp::Controller::User::Planning - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller.
+
+=head1 METHODS
+
+=cut
+
+
+=head2 index
+
+=cut
+
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->response->body('Matched SamuApp::Controller::User::Planning in User::Planning.');
+}
+
+
+
+=encoding utf8
+
+=head1 AUTHOR
+
+hoel,,,
+
+=head1 LICENSE
+
+This library is free software. You can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
+__PACKAGE__->meta->make_immutable;
+
+1;

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO8859-1" ?>
+
+<PlanningType>
+  <Regulation>
+    <lundi>
+	  <creneau>
+        <nbPers>2</nbPers>
+        <startDate>0</startDate>
+        <startTime>20 :00 :00</startTime>
+        <endDate>1</endDate>
+		<endTime>08 :00 :00</endTime>
+      </creneau>
+	</lundi>
+    <mardi>
+	  <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+        <endDate>1</endDate>
+        <endTime>08 :00 :00</endTime>
+      </creneau>
+    </mardi>
+    <mercredi>
+      <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+		<endDate>1</endDate>
+		<endTime>08 :00 :00</endTime>
+	  </creneau>
+	</mercredi>
+	<jeudi>
+      <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+		<endDate>1</endDate>
+		<endTime>08 :00 :00</endTime>
+	  </creneau>
+	</jeudi>
+    <vendredi>
+      <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+		<endDate>1</endDate>
+        <endTime>08 :00 :00</endTime>
+	  </creneau>
+	</vendredi>
+	<samedi>
+	  <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+        <startTime>08:00:00</startTime>
+		<endDate>0</endDate>
+		<endTime>20 :00 :00</endTime>
+	  </creneau>
+	  <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+		<endDate>1</endDate>
+        <endTime>08 :00 :00</endTime>
+      </creneau>
+    </samedi>
+    <dimanche>
+	  <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>08:00:00</startTime>
+		<endDate>0</endDate>
+		<endTime>20 :00 :00</endTime>
+	  </creneau>
+	  <creneau>
+		<nbPers>2</nbPers>
+		<startDate>0</startDate>
+		<startTime>20:00:00</startTime>
+		<endDate>1</endDate>
+        <endTime>08 :00 :00</endTime>
+	  </creneau>
+	</dimanche>
+    <specialDays>
+	  <ferier>
+		<Date></Date>
+		<Date></Date>
+        <Rules>
+          <function></function>
+		  <creneau>
+			<nbPers></nbPers>
+			<startDate></startDate>
+			<startTime></startTime>
+			<endDate></endDate>
+			<endTime></endTime>
+		  </creneau>
+        </Rules>
+	  </ferier>
+	  <expect>
+		<Date></Date>
+		<Date></Date>
+		<Rules>
+		  <fonction></fonction>
+		  <creneau>
+			<nbPers></nbPers>
+			<startDate></startDate>
+            <startTime></startTime>
+			<endDate></endDate>
+			<endTime></endTime>
+		  </creneau>
+		</Rules>
+	  </expect>                             
+    </specialDays>
+  </Regulation>
+</PlanningType>

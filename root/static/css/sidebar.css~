@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+	width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    width: 100px;
+    left: 0;
+	height: 100vh;
+    z-index: 999;
+    transition: all 0.3s;
+}
+#sidebar.active {
+    margin-left: -250px;
+}

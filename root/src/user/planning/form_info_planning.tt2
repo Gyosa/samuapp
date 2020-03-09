@@ -1,0 +1,8 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+[% META title = 'Form Info Planning' %]
+ 
+[%# Render the HTML::FormHandler Form %]
+[% form.render %]
+
+<p><a href="[% c.uri_for(c.controller.action_for('list')) %]">Return to your planning list</a></p>

@@ -1,0 +1,46 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<span> User ID with arg : [% id %]</sapn>
+
+<div class="row">
+
+<div class="col-6">
+<ul>
+	<li>Planning ID : [% planning.planning_id |html %]</li>
+	<li>Planning Type : [% planning.planning_type |html %]</li>
+	<li>Planning Start Date : [% planning.planning_start_date |html %]</li>
+	<li>Planning End Date : [% planning.planning_end_date |html %]</li>
+</ul>
+</div>
+
+<div class="col-6">
+Show Planning user appartenance
+
+<ul style="list-style-type:none; width:100%">
+	<li>
+		<div class="row">
+			 <div class="col-6">
+				 	Prénom Nom
+			</div>
+			<div class="col-6">
+				 Nombre de créneau
+			</div>
+		</div>
+	</li>
+	[% FOREACH utilisateur = participants %]
+	<li>
+		<div class="row">
+			 <div class="col-6">
+			 	 <a href="[% c.uri_for('/admin/users/show') %]?user_id=[% utilisateur.0.utilisateur_id %]">
+				 	[% utilisateur.0.utilisateur_prenom %] [% utilisateur.0.utilisateur_nom %]
+				 </a>
+			</div>
+			<div class="col-6">
+				 [% utilisateur.1 %]
+			</div>
+		</div>
+	</li>
+	[% END %]
+</ul>
+</div>
+</div>

@@ -1,0 +1,58 @@
+#outer {
+	padding: 0px;
+}
+
+#header {
+    text-align: center;
+	background-color: #ddd;
+}
+#header h1 {
+    margin: 0;
+}
+#header img {
+    float: right;
+}
+.navbar {
+	margin: 0px;
+}
+
+#footer {
+    text-align: center;
+    font-style: italic;
+    padding-top: 20px;
+}
+#menu {
+    background-color: #ddd;
+    font-weight: bold;
+}
+#menu ul {
+    list-style: none;
+    float: left;
+    margin: 0;
+    padding: 0 0 100% 5px;
+    font-weight: normal;
+    background-color: #ddd;
+    width: 100px;
+}
+#bodyblock {
+    top: 100px;
+}
+#content {
+    width: calc(100% - 100px);
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+	top: 100px;
+	right: 0;
+}
+
+#content.active {
+    width: 100%;
+}
+.message {
+    color: #390;
+}
+.error {
+    color: #f00;
+}

@@ -1,0 +1,55 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<table id="liste_planning" class="table table-condensed table-responsive">
+	   <thead>
+		<tr>
+			<th>N°id</th>
+			<th>Type</th>
+			<th>Start date</th>
+			<th>End date</th>
+			<th></th>
+		</tr>
+	   </thead>
+
+	   <tbody>
+	    [% FOREACH planning = plannings %]
+		<tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
+			<td>[% planning.planning_id |html %]</td>
+			<td>[% planning.planning_type |html %]</td>
+			<td>[% planning.planning_start_date |html %]</td>
+			<td>[% planning.planning_end_date |html %]</td>
+			<td></td>
+		</tr>
+		[% END %]
+	   </tbody>
+
+</table>
+
+<!-- voir documentation sur <http://datatables.net/manual/index> -->
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#liste_planning').DataTable( {
+       "renderer": "bootstrap",
+       "scrollX": true,
+       "autoWidth": false,
+       "columnDefs": [
+         { "orderable": false, "targets": -1 } // la dernière colonne n'est pas triable
+       ],
+      "language": {
+        "lengthMenu": "Afficher _MENU_ lignes par page",
+        "zeroRecords": "Aucun client à afficher",
+        "info": "Page _PAGE_ sur _PAGES_",
+        "infoEmpty": "Aucun client dans la table",
+        "infoFiltered": "(sélection à partir d'un total de _MAX_ clients)",
+        pagingType: 'full',
+        paginate: {
+            first:    'Premier',
+            previous: 'Précédent',
+            next:     'Suivant',
+            last:     'Dernier',
+         },
+      }
+    });
+  $('#liste_planning').addClass('table table-striped table-bordered');
+  });
+</script>
