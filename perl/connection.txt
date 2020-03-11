@@ -1,0 +1,3 @@
+script/myapp_create.pl model DB DBIC::Schema MyApp::Schema \
+    create=static components=TimeStamp,PassphraseColumn \
+    'dbi:Pg:dbname=samuapp' 'catalyst' 'catalyst' '{ AutoCommit => 1 }'
