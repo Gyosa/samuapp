@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+ 
+use strict;
+use warnings;
+
+
+### input ###
+# config one configuration (list creneaux & user)
+# params metaheu parameters
+#
+### output ###
+# s a solution for a config (rng)
+
+sub create_solution(){
+
+	#get config
+
+	#get param
+
+	# iterate over creneaux
+	#   affect user
+
+	#export result
+}
+1

@@ -2,7 +2,7 @@
  
 use strict;
 use warnings;
- 
+use lib '../lib';
 use SamuApp::Schema;
  
 my $schema = SamuApp::Schema->connect('dbi:Pg:dbname=samuapp;host=localhost', 'catalyst', 'catalyst');

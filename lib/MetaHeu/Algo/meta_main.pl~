@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+#package MetaHeu;
+use strict;
+use warnings;
+
+use lib '.';
+use Algo::InputData;
+
+## input data
+# require './Algo/input_data.pl';
+my $result = input_data() ; # (list creneaux, list user) config
+print $result;
+## create_solution
+
+#my $solution = create_sol(); # return une solution per config
+
+## apply metaheu algo 
+
+#my $solution_s = meta_algo(); # best solution
+
+## output data
+
+require './Algo/output_data.pl';
+	my $res = output_data(); # print result
+print $res;/
+
+## objective funxtion
+
+#my $obj_f = fonction_obj(); # return obj_j (double) per solution

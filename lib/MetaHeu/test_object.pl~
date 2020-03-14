@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+#package MetaHeu;
+use strict;
+use warnings;
+use diagnostics;
+
+use Data::Dumper;
+use lib '.';
+use Object::User;
+use Object::ListUser;
+
+# init user
+my $user1 = Object::User->new({user_id => 1,
+					   souhait_jour => 7,
+					   souhait_nuit => 12
+					  });
+my $user2 = Object::User->new({user_id => 2,
+					   souhait_jour => 5,
+					   souhait_nuit => 15
+					  });
+
+my $list_user = Object::ListUser->new ({nb_users => 3,
+								users => [$user1, $user2]
+							   });
+
+$list_user->set_nb_users;
+print $list_user->get_nb_users;

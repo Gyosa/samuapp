@@ -1,0 +1,7 @@
+package Algo;
+
+use namespace::autoclean;
+use sctrit;
+use warnings;
+
+1
