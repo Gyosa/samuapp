@@ -1,4 +1,4 @@
-package Object;
+package Mmas;
 
 use namespace::autoclean;
 use strict;
