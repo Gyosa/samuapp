@@ -72,14 +72,34 @@ sub input_creneau{
     my $planning = $schema->resultset('Planning')->find($planning_id);
     my @creneaux = $planning->creneaus;
     for my $creneau (@creneaux) {
+	
+	my $year = $creneau->creneau_start_datetime->year;
+	my $month = $creneau->creneau_start_datetime->month;
+	my $day = $creneau->creneau_start_datetime->day;
+	    
+	my $start_datetime = DateTime->new({year =>$year,
+					    month =>$month,
+					    day =>$day
+					   });
 
+	$year = $creneau->creneau_end_datetime->year;
+	$month = $creneau->creneau_end_datetime->month;
+	$day = $creneau->creneau_end_datetime->day;
+	
+	my $end_datetime = DateTime->new({year => $year,
+					    month => $month,
+					    day => $day
+					 });
+
+	my $creneau_id = $creneau->creneau_id;
+	my $nb_personnes = $creneau->creneau_nbpersonnes;
 	# creation d'un creneau
-	my $c = Object::Creneau->new({creneau_id => $creneau->creneau_id,
-				      nb_personnes => $creneau->creneau_nbpersonnes,
-				      start_datetime => $creneau->creneau_start_datetime,
-				      end_datetime => $creneau->creneau_end_datetime
+	my $c = Object::Creneau->new({creneau_id => $creneau_id,
+				      nb_personnes => $nb_personnes,
+				      start_datetime => $start_datetime,
+				      end_datetime => $end_datetime
 				     });
-	$list_creneau->add_creneau($creneau);
+	$list_creneau->add_creneau($c);
     }
     return $list_creneau;
 }
