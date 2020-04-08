@@ -71,6 +71,11 @@ sub affect_user ($$$$$) {
     my $user_id = Mmas::SelectUser->select_user($solution, $config, $creneau, $pheromone, $params);
 
     $solution->add($creneau->get_creneau_id, $user_id);
+    $self->update_config($config, $solution);
+}
+
+sub update_config {
+    my $self = shift;
 }
 
 sub cmp_solution{
