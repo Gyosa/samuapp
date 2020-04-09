@@ -13,7 +13,16 @@ sub new{
 sub get_users($){
     my ($self, $creneau_id) = @_;
     # test if  $self->{$creneau_id}  exist
-    return @{ $self->{$creneau_id} };
+    if (defined $self->{$creneau_id} ) {
+	return @{ $self->{$creneau_id} };
+    }
+    return ();
+}
+
+sub get_creneaux {
+    my $self = shift;
+    #return sort(keys(%{ $self }));
+    return keys( %{ $self } );
 }
 
 ## Methods ##

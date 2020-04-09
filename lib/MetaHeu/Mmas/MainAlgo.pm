@@ -7,6 +7,7 @@ use lib '../Metaheu';
 
 use DateTime;
 use Data::Dumper;
+use Storable qw(dclone);
 
 use Object::Solution;
 use Mmas::Pheromone;
@@ -14,12 +15,12 @@ use Mmas::SelectUser;
 
 sub run {
     my $self = shift;
-    my ($params, $config) = @_;
+    my ($params, $init_config) = @_;
     my $solution_global_best = Object::Solution->new();
-    my $pheromone = Mmas::Pheromone->new({n_col => $config->{creneaux}->{nb_creneaux},
-					  n_row => $config->{users}->{nb_users}
+    my $pheromone = Mmas::Pheromone->new({n_col => $init_config->{creneaux}->{nb_creneaux},
+					  n_row => $init_config->{users}->{nb_users}
 					 });
-    $pheromone->initialize($config, $params->{t_max});
+    $pheromone->initialize($init_config, $params->{t_max});
 
     # test for all random solutions
     my $temp;
@@ -31,7 +32,7 @@ sub run {
 	# for each fourmis
 	for (my $ant=0; $ant < $params->{nb_fourmis}; $ant++){
 	    my $solution = Object::Solution->new();
-	    
+	    my $config = dclone($init_config);
 	    # for each creneau
 	    for my $creneau_id ($config->{creneaux}->ordened_id()){
 		my $creneau = $config->{creneaux}->get_creneau($creneau_id);
@@ -69,13 +70,24 @@ sub affect_user ($$$$$) {
     my $self = shift;
     my ($solution, $config, $creneau, $pheromone, $params) = @_;
     my $user_id = Mmas::SelectUser->select_user($solution, $config, $creneau, $pheromone, $params);
-
-    $solution->add($creneau->get_creneau_id, $user_id);
-    $self->update_config($config, $solution);
+    #print "user_id selected : $user_id";print "\n";
+    
+    my $user = $config->get_users->get_user($user_id);
+    $solution->add($creneau->get_creneau_id, $user->get_user_id());
+    $self->update_config($config, $solution, $creneau, $user);
 }
 
 sub update_config {
     my $self = shift;
+    my ($config, $solution, $creneau, $user) = @_;
+    # select $creneau type
+
+    # delete for this user this type of creneau
+
+    # hardcode with day creneaux
+    $user->set_souhait_jour($user->get_souhait_jour() - 1);
+    my $user_id = $user->get_user_id();
+    
 }
 
 sub cmp_solution{

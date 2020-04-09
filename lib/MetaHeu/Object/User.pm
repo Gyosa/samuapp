@@ -8,8 +8,8 @@ use warnings;
 sub new{
 	my ($class, $args) = @_;
 	my $self = bless {user_id => $args->{user_id},
-					  souhait_jour => $args->{souhait_jour},
-					  souhait_nuit => $args->{souhait_nuit}
+			  souhait_jour => $args->{souhait_jour},
+			  souhait_nuit => $args->{souhait_nuit}
 	},$class;
 }
 

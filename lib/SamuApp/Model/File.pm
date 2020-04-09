@@ -4,7 +4,7 @@ use strict;
 use base 'Catalyst::Model::File';
 
 __PACKAGE__->config(
-    root_dir => '/home/hoel/Documents/samuApp/catalyst/samuFiles',
+    root_dir => '/var/local/samuapp',
 );
 
 =head1 NAME

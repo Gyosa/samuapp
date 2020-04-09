@@ -277,10 +277,12 @@ sub open_file ($$){
 	# need to match with file name
 	my @files = $c->model('File')->list;
 	#my $test = Dumper(@files);
-
-	my $file = "$files[0]->{dir}/$files[0]->{file}";
-	my $doc = new XML::LibXML->load_xml(location => $file);
 	
+	my $file = "$files[0]->{dir}/$files[0]->{file}";
+	$c->log->debug("file name $file");
+	
+	my $doc = new XML::LibXML->load_xml(location => $file);
+	$c->log->debug(Dumper($doc));
 	return $doc;
 }
 
