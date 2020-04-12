@@ -55,5 +55,19 @@ sub initialize {
     }
     
 }
+sub print {
+    my ($self, $sol) = @_;
+    for my $cren_id ( $sol->ordened_cren() ){
+	my @key_val;
+	for my $user_id (sort {$a <=> $b} (keys( %{ $self->{matrix}->{$cren_id} }) )) {
+	    push(@key_val, $user_id, $self->{matrix}->{$cren_id}->{$user_id});
 
+	    
+	}
+	my $fmt = 'Creneau ID:%4d'."\n".'%2d => %.02f||' x (scalar(@key_val)/2)."\n"; 
+	printf($fmt, $cren_id, @key_val);
+	
+    }
+    
+}
 1;

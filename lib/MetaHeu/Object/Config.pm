@@ -8,7 +8,9 @@ use warnings;
 sub new {
 	my ($class, $args) = @_;
 	my $self = bless {creneaux => $args->{creneaux},
-					  users => $args->{users}
+			  users => $args->{users},
+			  start_date => $args->{start_date},
+			  end_date => $args->{end_date}
 					  
 	},$class;
 }
@@ -28,7 +30,7 @@ sub get_creneau($){
 			return $creneau;
 		}
 	}
-	return -1;
+	return -2;
 }
 
 sub get_users{
@@ -47,5 +49,14 @@ sub get_user($){
 		}
 	}
 	return -1;
+}
+
+sub get_start_date {
+    my $self = shift;
+    return $self->{start_date};
+}
+sub get_end_date {
+    my $self = shift;
+    return $self->{end_date};
 }
 1;
