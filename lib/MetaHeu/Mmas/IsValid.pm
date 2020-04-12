@@ -84,7 +84,7 @@ sub user_over_allocated {
     for my $user (@users){
 	my $shouait = $user->get_souhait_jour() + $user->get_souhait_nuit();
 	my $real_creneau = 0;
-	
+	# method implement in Solution.pm
 	for my $creneau_id ($solution->get_creneaux()){
 	    my $creneau = $config->get_creneaux()->get_creneau($creneau_id);
 	    

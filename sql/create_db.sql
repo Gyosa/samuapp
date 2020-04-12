@@ -1,10 +1,14 @@
 drop table if exists utilisateur cascade ;
+drop table if exists groups cascade;
+drop table if exists appartient cascade;
 drop table if exists planning cascade;
 drop table if exists creneau cascade;
 drop table if exists infoPlanning cascade;
+drop table if exists vacance cascade;
 drop table if exists participePlanning cascade;
 drop table if exists rempliCreneau cascade;
 
+drop type if exists user_role cascade;
 drop type if exists planning_type cascade;
 
 
@@ -21,6 +25,25 @@ create table utilisateur (
     utilisateur_mail varchar(60),
     utilisateur_phone varchar(60)
       ) ;
+
+create table groups (
+    groups_id serial primary key,
+    groups_name varchar(128),
+    groups_description varchar(1024)
+      ) ;
+
+create table appartient (
+    appartient_utilisateur_id integer not null,
+    appartient_groups_id integer not null,
+    primary key (appartient_utilisateur_id, appartient_groups_id),
+    constraint appartient_utilisateur_id_fkey foreign key (appartient_utilisateur_id)
+    	       references utilisateur (utilisateur_id) match simple
+	       on update no action on delete cascade,
+    constraint appartient_groups_id_fkey foreign key (appartient_groups_id)
+    	       references groups (groups_id) match simple
+	       on update no action on delete cascade
+      ) ;
+
 
 create type planning_type as enum ('regulateur', 'mobile', 'mmg');
 
@@ -61,9 +84,19 @@ create table infoPlanning (
 	       on update no action on delete cascade
       ) ;
 
+create table vacance (
+    vacance_id serial primary key,
+    vacance_infoPlanning_id integer not null,
+    vacance_start_date date not null,
+    vacance_end_date date not null,
+    constraint vacance_infoPlanning_id_fkey foreign key (vacance_infoPlanning_id)
+    	       references infoPlanning (infoPlanning_id) match simple
+	       on update no action on delete cascade
+      ) ;
+
 create table participePlanning (
-    participePlanning_utilisateur_id integer,
-    participePlanning_planning_id integer,
+    participePlanning_utilisateur_id integer not null,
+    participePlanning_planning_id integer not null,
     primary key (participePlanning_utilisateur_id, participePlanning_planning_id),
     constraint participePlanning_utilisateur_id_fkey foreign key (participePlanning_utilisateur_id)
     	       references utilisateur (utilisateur_id) match simple
@@ -74,8 +107,8 @@ create table participePlanning (
       ) ;
 
 create table rempliCreneau (
-    rempliCreneau_utilisateur_id integer,
-    rempliCreneau_creneau_id integer,
+    rempliCreneau_utilisateur_id integer not null,
+    rempliCreneau_creneau_id integer not null,
     primary key (rempliCreneau_utilisateur_id, rempliCreneau_creneau_id),
     constraint rempliCreneau_utilisateur_id_fkey foreign key (rempliCreneau_utilisateur_id)
     	       references utilisateur (utilisateur_id) match simple

@@ -124,7 +124,7 @@ __PACKAGE__->belongs_to(
   "creneau_planning",
   "SamuApp::Schema::Result::Planning",
   { planning_id => "creneau_planning_id" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 =head2 remplicreneaus
@@ -157,8 +157,8 @@ __PACKAGE__->many_to_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-02-17 13:29:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gjuyOj0CH1dopRFcu0eavQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-12 16:31:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EHsDWKeTTwzfTNGw1dUe/g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

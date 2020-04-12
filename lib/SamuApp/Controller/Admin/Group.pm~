@@ -1,0 +1,55 @@
+package SamuApp::Controller::Admin::Group;
+use Moose;
+use namespace::autoclean;
+
+BEGIN { extends 'Catalyst::Controller'; }
+
+=head1 NAME
+
+SamuApp::Controller::Admin::Group - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller.
+
+=head1 METHODS
+
+=cut
+
+
+=head2 index
+
+=cut
+
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->response->body('Matched SamuApp::Controller::Admin::Group in Admin::Group.');
+}
+
+sub list :Path('list') :Args(0) {
+    my ( $self, $c ) = @_;
+    my $text = "list des groups";
+
+    $c->stash(groups => [$c->model('DB::Group')->all]);
+
+    $c->stash(template => 'admin/group/list_groups.tt2', text => $text);
+    
+}
+
+=encoding utf8
+
+=head1 AUTHOR
+
+Hoeël,,,
+
+=head1 LICENSE
+
+This library is free software. You can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
+__PACKAGE__->meta->make_immutable;
+
+1;

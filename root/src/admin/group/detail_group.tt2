@@ -1,0 +1,25 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<span> Edit This group "link later"</span>
+
+<ul>
+	<li>Group ID : [% group.groups_id | html %]</li>
+	<li>Group Name : [% group.groups_name | html %]</li>
+	<li>Group Description : [% group.groups_description | html %]</li>
+</ul>
+
+<div>
+	<ul style="list-style-type:none; with:100%">
+	    <li>
+		User in this group
+	    <li>
+	    [% FOREACH utilisateur = users %]
+	    <li>
+		<div class="row">
+		[% utilisateur.utilisateur_prenom | html %]
+		[% utilisateur.utilisateur_nom | html %]
+		</div>
+	    </li>
+	    [% END %]
+	</ul>
+</div>

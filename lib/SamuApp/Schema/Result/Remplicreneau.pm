@@ -91,7 +91,7 @@ __PACKAGE__->belongs_to(
   "remplicreneau_creneau",
   "SamuApp::Schema::Result::Creneau",
   { creneau_id => "remplicreneau_creneau_id" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 =head2 remplicreneau_utilisateur
@@ -106,12 +106,12 @@ __PACKAGE__->belongs_to(
   "remplicreneau_utilisateur",
   "SamuApp::Schema::Result::Utilisateur",
   { utilisateur_id => "remplicreneau_utilisateur_id" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-02-17 13:29:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eB4k96dBVbGiEA3LjOb+Rg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-12 16:31:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nc8bQTMLqhN82ly094EYxA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

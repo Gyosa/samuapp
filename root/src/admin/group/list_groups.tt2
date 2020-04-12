@@ -1,0 +1,71 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+<span>
+	<p>
+		HTML::FormHandler:
+    	<a href="[% c.uri_for(c.controller.action_for('create')) %]">Create</a>
+	</p>
+</span>
+
+<table id="liste_groups" class="table table-condensed table-responsive">
+	   <thead>
+		<tr>
+			<th>N°id</th>
+			<th>name</th>
+			<th>Nombre de membre</th>
+			<th>Description</th>
+			<th></th>
+		</tr>
+	   </thead>
+
+	   <tbody>
+	    [% FOREACH group = groups %]
+		<tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
+			<td>[% group.groups_id |html %]</td>
+			<td>[% group.groups_name |html %]</td>
+			<td>[% group.groups_name |html %]</td>
+			<td>[% group.groups_description |html %]</td>
+			<td style="white-sapce: nowrap">
+				<a href="[% c.uri_for('/') %]admin/group/show?group_id=[% group.groups_id |html %]" title="show" class="btn bn-default">
+				   <span class="glyphicon glyphicon-eye-open"></span>
+				</a>
+				<a href="[% c.uri_for(c.controller.action_for('edit')) %]?group_id=[% group.groups_id |html %]" title="edit" class="btn bn-default">
+				   <span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<a href="[% c.uri_for('/') %]admin/users/delete?group_id=[% group.groups_id |html %]" title="delete" class="btn bn-default">
+				   <span class="glyphicon glyphicon-trash"></span>
+				</a>
+			</td>
+		</tr>
+		[% END %]
+	   </tbody>
+
+</table>
+
+<!-- voir documentation sur <http://datatables.net/manual/index> -->
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#liste_groups').DataTable( {
+       "renderer": "bootstrap",
+       "scrollX": true,
+       "autoWidth": false,
+       "columnDefs": [
+         { "orderable": false, "targets": -1 } // la dernière colonne n'est pas triable
+       ],
+      "language": {
+        "lengthMenu": "Afficher _MENU_ lignes par page",
+        "zeroRecords": "Aucun client à afficher",
+        "info": "Page _PAGE_ sur _PAGES_",
+        "infoEmpty": "Aucun client dans la table",
+        "infoFiltered": "(sélection à partir d'un total de _MAX_ clients)",
+        pagingType: 'full',
+        paginate: {
+            first:    'Premier',
+            previous: 'Précédent',
+            next:     'Suivant',
+            last:     'Dernier',
+         },
+      }
+    });
+  $('#liste_groups').addClass('table table-striped table-bordered');
+  });
+</script>

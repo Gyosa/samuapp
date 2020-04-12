@@ -96,8 +96,8 @@ it in the stash
  
 sub object :Chained('base') :PathPart('') :CaptureArgs(0) {
     my ($self, $c) = @_;
-	my $params = $c->request->query_params;
-	my $id = $params->{'user_id'};
+    my $params = $c->request->query_params;
+    my $id = $params->{'user_id'};
  
     # Find the book object and store it in the stash
     $c->stash(object => $c->stash->{resultset}->find($id));

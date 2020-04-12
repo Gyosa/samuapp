@@ -24,12 +24,16 @@ sub input_data ($){
     my ($self, $planning_id) = @_;
     my $schema = SamuApp::Schema->connect('dbi:Pg:dbname=samuapp;host=localhost', 'catalyst', 'catalyst');
 
+    my $planning = $schema->resultset('Planning')->find($planning_id);
+
     my $list_user = input_users($schema, $planning_id);
 
     my $list_creneau = input_creneau($schema, $planning_id);
 
     my $config = Object::Config->new({users => $list_user,
-				      creneaux => $list_creneau
+				      creneaux => $list_creneau,
+				      start_date => $planning->planning_start_date,
+				      end_date => $planning->planning_end_date
 				     });
 
     return $config;

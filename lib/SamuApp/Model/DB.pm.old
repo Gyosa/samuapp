@@ -7,7 +7,7 @@ __PACKAGE__->config(
     schema_class => 'SamuApp::Schema',
     
     connect_info => {
-        dsn => 'dbi:Pg:dbname=samuapp',
+        dsn => 'dbi:Pg:dbname=samuapp;host=localhost',
         user => 'catalyst',
         password => 'catalyst',
         AutoCommit => q{1},
@@ -32,7 +32,7 @@ Catalyst::Helper::Model::DBIC::Schema - 0.65
 
 =head1 AUTHOR
 
-Hoeël
+hoel
 
 =head1 LICENSE
 

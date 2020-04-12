@@ -23,23 +23,27 @@ my $inital_config = $config;
 
 
 #call main algo
-my $params = {nb_iteration => 100,
+my $params = {nb_iteration => 20,
 	      nb_fourmis => 10,
 	      t_max => 3,
+	      t_min => 0.3,
+	      ro => 0.3,
+	      update_phero => 1,
 	      alpha => 1,
 	      beta => 1
 };
 
 my $res = Mmas::MainAlgo->run($params, $config);
 
+$res->print();
 
-#print Dumper($res->{0}->{0});
-#print Dumper($res->{0});
-for my $sol (values(%{ $res->{0} })){
+=head
+for my $sol (values(%{ $res->{9} })){
     print Mmas::IsValid->is_valid_solution($sol, $inital_config);
     print "\n";
     print Dumper $sol;
 }
+=cut
 
 my $end = time();
 

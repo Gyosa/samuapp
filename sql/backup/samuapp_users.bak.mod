@@ -15,8 +15,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
---- add by me 
-SET session_replication_role = replica;
 
 --
 -- Name: planning_type; Type: TYPE; Schema: public; Owner: catalyst
@@ -253,6 +251,84 @@ ALTER TABLE ONLY public.planning ALTER COLUMN planning_id SET DEFAULT nextval('p
 
 ALTER TABLE ONLY public.utilisateur ALTER COLUMN utilisateur_id SET DEFAULT nextval('public.utilisateur_utilisateur_id_seq'::regclass);
 
+--
+-- Data for Name: participeplanning; Type: TABLE DATA; Schema: public; Owner: catalyst
+--
+
+COPY public.participeplanning (participeplanning_utilisateur_id, participeplanning_planning_id) FROM stdin;
+1	1
+2	1
+3	1
+1	2
+2	2
+3	2
+1	13
+2	13
+3	13
+1	14
+2	14
+3	14
+4	14
+5	14
+6	14
+7	14
+8	14
+9	14
+10	14
+11	14
+12	14
+13	14
+14	14
+15	14
+16	14
+17	14
+18	14
+19	14
+20	14
+21	14
+22	14
+23	14
+24	14
+25	14
+26	14
+27	14
+28	14
+29	14
+30	14
+31	14
+32	14
+33	14
+34	14
+35	14
+36	14
+37	14
+38	14
+\.
+
+
+--
+-- Data for Name: remplicreneau; Type: TABLE DATA; Schema: public; Owner: catalyst
+--
+
+COPY public.remplicreneau (remplicreneau_utilisateur_id, remplicreneau_creneau_id) FROM stdin;
+1	1
+2	2
+3	3
+1	4
+2	1
+3	2
+1	3
+2	4
+3	5
+1	6
+2	7
+3	8
+1	5
+2	6
+3	7
+1	8
+\.
+
 
 --
 -- Data for Name: creneau; Type: TABLE DATA; Schema: public; Owner: catalyst
@@ -407,61 +483,6 @@ COPY public.infoplanning (infoplanning_id, infoplanning_utilisateur_id, infoplan
 
 
 --
--- Data for Name: participeplanning; Type: TABLE DATA; Schema: public; Owner: catalyst
---
-
-COPY public.participeplanning (participeplanning_utilisateur_id, participeplanning_planning_id) FROM stdin;
-1	1
-2	1
-3	1
-1	2
-2	2
-3	2
-1	13
-2	13
-3	13
-1	14
-2	14
-3	14
-4	14
-5	14
-6	14
-7	14
-8	14
-9	14
-10	14
-11	14
-12	14
-13	14
-14	14
-15	14
-16	14
-17	14
-18	14
-19	14
-20	14
-21	14
-22	14
-23	14
-24	14
-25	14
-26	14
-27	14
-28	14
-29	14
-30	14
-31	14
-32	14
-33	14
-34	14
-35	14
-36	14
-37	14
-38	14
-\.
-
-
---
 -- Data for Name: planning; Type: TABLE DATA; Schema: public; Owner: catalyst
 --
 
@@ -470,30 +491,6 @@ COPY public.planning (planning_id, planning_type, planning_start_date, planning_
 2	regulateur	2020-03-09	2020-03-15
 13	regulateur	2020-04-01	2020-05-01
 14	regulateur	2020-05-01	2020-06-01
-\.
-
-
---
--- Data for Name: remplicreneau; Type: TABLE DATA; Schema: public; Owner: catalyst
---
-
-COPY public.remplicreneau (remplicreneau_utilisateur_id, remplicreneau_creneau_id) FROM stdin;
-1	1
-2	2
-3	3
-1	4
-2	1
-3	2
-1	3
-2	4
-3	5
-1	6
-2	7
-3	8
-1	5
-2	6
-3	7
-1	8
 \.
 
 

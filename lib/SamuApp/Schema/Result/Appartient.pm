@@ -1,12 +1,12 @@
 use utf8;
-package SamuApp::Schema::Result::Participeplanning;
+package SamuApp::Schema::Result::Appartient;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-SamuApp::Schema::Result::Participeplanning
+SamuApp::Schema::Result::Appartient
 
 =cut
 
@@ -34,21 +34,21 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<participeplanning>
+=head1 TABLE: C<appartient>
 
 =cut
 
-__PACKAGE__->table("participeplanning");
+__PACKAGE__->table("appartient");
 
 =head1 ACCESSORS
 
-=head2 participeplanning_utilisateur_id
+=head2 appartient_utilisateur_id
 
   data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 participeplanning_planning_id
+=head2 appartient_groups_id
 
   data_type: 'integer'
   is_foreign_key: 1
@@ -57,9 +57,9 @@ __PACKAGE__->table("participeplanning");
 =cut
 
 __PACKAGE__->add_columns(
-  "participeplanning_utilisateur_id",
+  "appartient_utilisateur_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "participeplanning_planning_id",
+  "appartient_groups_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
@@ -67,37 +67,34 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</participeplanning_utilisateur_id>
+=item * L</appartient_utilisateur_id>
 
-=item * L</participeplanning_planning_id>
+=item * L</appartient_groups_id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key(
-  "participeplanning_utilisateur_id",
-  "participeplanning_planning_id",
-);
+__PACKAGE__->set_primary_key("appartient_utilisateur_id", "appartient_groups_id");
 
 =head1 RELATIONS
 
-=head2 participeplanning_planning
+=head2 appartient_group
 
 Type: belongs_to
 
-Related object: L<SamuApp::Schema::Result::Planning>
+Related object: L<SamuApp::Schema::Result::Group>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "participeplanning_planning",
-  "SamuApp::Schema::Result::Planning",
-  { planning_id => "participeplanning_planning_id" },
+  "appartient_group",
+  "SamuApp::Schema::Result::Group",
+  { groups_id => "appartient_groups_id" },
   { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
-=head2 participeplanning_utilisateur
+=head2 appartient_utilisateur
 
 Type: belongs_to
 
@@ -106,15 +103,15 @@ Related object: L<SamuApp::Schema::Result::Utilisateur>
 =cut
 
 __PACKAGE__->belongs_to(
-  "participeplanning_utilisateur",
+  "appartient_utilisateur",
   "SamuApp::Schema::Result::Utilisateur",
-  { utilisateur_id => "participeplanning_utilisateur_id" },
+  { utilisateur_id => "appartient_utilisateur_id" },
   { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-12 16:31:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:v2DxEmIH4oE4YxtgtYjeZA
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1BHLx2enThB8qUbgH8oTCg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -133,6 +133,21 @@ __PACKAGE__->set_primary_key("utilisateur_id");
 
 =head1 RELATIONS
 
+=head2 appartients
+
+Type: has_many
+
+Related object: L<SamuApp::Schema::Result::Appartient>
+
+=cut
+
+__PACKAGE__->has_many(
+  "appartients",
+  "SamuApp::Schema::Result::Appartient",
+  { "foreign.appartient_utilisateur_id" => "self.utilisateur_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 infoplannings
 
 Type: has_many
@@ -180,6 +195,16 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 appartient_groups
+
+Type: many_to_many
+
+Composing rels: L</appartients> -> appartient_group
+
+=cut
+
+__PACKAGE__->many_to_many("appartient_groups", "appartients", "appartient_group");
+
 =head2 participeplanning_plannings
 
 Type: many_to_many
@@ -209,8 +234,8 @@ __PACKAGE__->many_to_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-02-21 22:23:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Khdiw0juzs8ABMqTFt5xSg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-12 16:31:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TCrKAuh+ZN9R1GpKaPkMIA
 
 # Have the 'password' column use a SHA-1 hash and 20-byte salt
 # with RFC 2307 encoding; Generate the 'check_password" method
