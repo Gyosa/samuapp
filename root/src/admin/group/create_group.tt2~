@@ -1,0 +1,75 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<form name="form_group"
+method="post"
+action="[% c.uri_for(c.controller.action_for('create_post')) %]"
+enctype="multipart/form-data">
+
+  <h2>Create New group</h2>
+  <div class="row">
+  [%~ INCLUDE layout/champ.tt
+  nom="groups_name" valeur="$group.groups_name || $valid_args.groups_name"
+  label="Nom" msg="$msgs.groups_name" %]
+  </div>
+
+  <div class="row">
+  [%~ INCLUDE layout/champ.tt
+  nom="groups_description" valeur="$group.groups_description || $valid_args.groups_description"
+  label="Description" msg="$msgs.groups_description" %]
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-5">
+      <select name="utilisateurs" id="multiselect" class="form-control" size="8" multiple="multiple">
+        [%FOREACH utilisateur = utilisateurs.out %]
+	
+        <option id="try" value="[% utilisateur.utilisateur_id%]">[% utilisateur.utilisateur_nom %] [% utilisateur.utilisateur_prenom %]</option>
+        [%END%]
+	
+	[%FOREACH utilisateur = utilisateurs.in %]
+	
+        <option id="try" value="[% utilisateur.utilisateur_id%]" selected>[% utilisateur.utilisateur_nom %] [% utilisateur.utilisateur_prenom %]</option>
+        [%END%]
+      </select>
+    </div>
+
+    <!--
+    <div class="col-xs-1">
+      <button type="button" id="multiselect_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+      <button type="button" id="multiselect_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+      <button type="button" id="multiselect_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+      <button type="button" id="multiselect_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+    </div>
+    
+    <div class="col-xs-5">
+      <select name="to" id="multiselect" class="form-control" size="8" multiple="multiple">
+	[%FOREACH utilisateur = utilisateurs.in %]
+	
+        <option id="try" value="[% utilisateur.utilisateur_id%]">[% utilisateur.utilisateur_nom %] [% utilisateur.utilisateur_prenom %]</option>
+        [%END%]
+      </select>
+    </div>
+    -->
+  </div>
+  
+  <script src="[% c.uri_for('/static/js/jquery.multi-select.js') %]"></script>
+  
+  <---
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+    $('#multiselect').multiSelect();
+    });
+  </script>
+  -->
+  <!--
+  <script type="text/javascript">
+    $('#multiselect').multiselect();
+  </script>
+  -->
+  
+  <div>
+    <button class="btn btn-success" type="submit">
+      Valider la Création
+    </button>
+  </div>
+</form>

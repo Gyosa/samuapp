@@ -30,6 +30,8 @@ use Catalyst qw/
     Session::Store::File
 
     ConfigLoader
+
+    FormValidator::Simple
 /;
 
 extends 'Catalyst';

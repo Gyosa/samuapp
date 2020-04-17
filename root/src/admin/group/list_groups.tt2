@@ -22,16 +22,16 @@
 		<tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
 			<td>[% group.groups_id |html %]</td>
 			<td>[% group.groups_name |html %]</td>
-			<td>[% group.groups_name |html %]</td>
+			<td>[% group.nb_utilisateurs |html %]</td>
 			<td>[% group.groups_description |html %]</td>
 			<td style="white-sapce: nowrap">
 				<a href="[% c.uri_for('/') %]admin/group/show?group_id=[% group.groups_id |html %]" title="show" class="btn bn-default">
 				   <span class="glyphicon glyphicon-eye-open"></span>
 				</a>
-				<a href="[% c.uri_for(c.controller.action_for('edit')) %]?group_id=[% group.groups_id |html %]" title="edit" class="btn bn-default">
+				<a href="[% c.uri_for(c.controller.action_for('form')) %]?group_id=[% group.groups_id |html %]" title="edit" class="btn bn-default">
 				   <span class="glyphicon glyphicon-pencil"></span>
 				</a>
-				<a href="[% c.uri_for('/') %]admin/users/delete?group_id=[% group.groups_id |html %]" title="delete" class="btn bn-default">
+				<a href="[% c.uri_for(c.controller.action_for('delete')) %]?group_id=[% group.groups_id |html %]" title="delete" class="btn bn-default">
 				   <span class="glyphicon glyphicon-trash"></span>
 				</a>
 			</td>

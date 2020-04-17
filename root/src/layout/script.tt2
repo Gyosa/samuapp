@@ -33,3 +33,5 @@
     <link rel="stylesheet"
 	  type="text/css"
 	  href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" />
+	  <!-- CSS for multi select JQuery -->
+    <link href="[% c.uri_for('/static/css/multi-select.css') %]" media="screen" rel="stylesheet" type="text/css">
