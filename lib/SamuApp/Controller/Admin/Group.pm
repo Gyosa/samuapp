@@ -273,7 +273,8 @@ sub set_users :Private {
 	$users = [$users];
     }
     
-    my %where = (appartient_utilisateur_id => {-not_in => $users});
+    my %where = (appartient_utilisateur_id => {-not_in => $users},
+		 appartient_groups_id => $group->groups_id);
     my $rs_d = $c->model('DB::Appartient')->search(\%where);
     $rs_d->delete;
     
