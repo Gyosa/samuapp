@@ -54,22 +54,16 @@ enctype="multipart/form-data">
   
   <script src="[% c.uri_for('/static/js/jquery.multi-select.js') %]"></script>
   
-  <---
+  
   <script type="text/javascript">
     jQuery(document).ready(function($) {
     $('#multiselect').multiSelect();
     });
   </script>
-  -->
-  <!--
-  <script type="text/javascript">
-    $('#multiselect').multiselect();
-  </script>
-  -->
   
   <div>
     <button class="btn btn-success" type="submit">
-      Valider la Création
+      Valider
     </button>
   </div>
 </form>

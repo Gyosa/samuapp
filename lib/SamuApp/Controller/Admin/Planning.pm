@@ -57,13 +57,21 @@ sub object :Chained('base') :PathPart('') :CaptureArgs(0) {
 	# get the planning resultset
 	my $planning = $c->stash->{resultset}->find($id);
 	$c->stash(planning => $planning);
-	die "User $id not found!" if !$c->stash->{planning};
+	die "Planning $id not found!" if !$c->stash->{planning};
 
 	# get the list of créneaux for this planning
 	my @creneaux = $planning->creneaus;
 	$c->stash(creneaux => \@creneaux);
 	
 	$c->log->debug("*** INSIDE OBJECT METHOD for obj id=$id ***");
+}
+# test sub for creation of scheduler
+
+sub scheduler :Chained('object') :PathPart('schedule') :Args(0) QueryParam('planning_id'){
+    my ($self, $c) = @_;
+    #my $planning = $c->stash->{planning};
+    $c->stash(template => 'admin/planning/scheduler_planning.tt2');
+    
 }
 
 use Types::Standard 'Int';

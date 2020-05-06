@@ -1,0 +1,66 @@
+ <!-- need to be include with
+      [%# INCLUDE "layout/admin_scheduler.tt2" %] -->
+
+<div id="scheduler" style="width:100%; height:100%;">
+  
+</div>
+
+<!-- loading extension script -->
+<script type="text/javascript" src="[% c.uri_for('/static/scheduler/ext/dhtmlxscheduler_readonly.js') %]"></script>
+<script type="text/javascript" src="[% c.uri_for('/static/scheduler/ext/dhtmlxscheduler_all_timed.js') %]"></script>
+
+<script>
+  //structure of scheduler
+  
+  scheduler.config.header = [
+  "day",
+  "week",
+  "month",
+  "date",
+  "prev",
+  "today",
+  "next"
+  ];
+  
+
+  // Scheeduler configuration
+  scheduler.config.all_timed  = "short"; // only events less than 24 hours will be displayed as usual ones
+  //scheduler.config.multi_day = true; // rest of multiday events would be displayed at the top
+
+  
+  // Scheduler ReadOnly
+  scheduler.config.readonly_form = true; // readonly with lightbox 
+		
+
+  //block all modifications
+  scheduler.attachEvent("onBeforeDrag",function(){return false;})
+  scheduler.attachEvent("onClick",function(){return false;})
+  scheduler.config.details_on_dblclick = true;
+  scheduler.config.dblclick_create = false;
+
+  // edit color event function by their planning type
+  var events = scheduler.getEvents(new Date(), new Date(9999,1,1);   
+  //eventss - list of all oncoming events
+  evs.sort(function(a,b){ return (a.start_date > b.start_date ? 1 : -1); });
+  //eventss[0] - nearest upcoming event
+				   
+  evs.forEach(function(event){
+     
+  );
+
+				   
+				   
+				       
+							  
+  
+</script>
+
+
+
+  
+
+<!-- Init and Load JSON for Scheduler-->
+<script>
+  scheduler.init('scheduler', null, "week");
+  scheduler.load("[% c.uri_for('/static/planning/list_plannings/planning_0.json') %]");
+</script>
