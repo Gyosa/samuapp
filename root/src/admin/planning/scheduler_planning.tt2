@@ -1,0 +1,8 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<span> User ID with arg : [% id %]</span>
+
+<div style="height:500px">
+[% INCLUDE "layout/admin_scheduler.tt2" id = 0 %]
+<div>
+[%# INCLUDE "layout/champ.tt" %] 

@@ -48,7 +48,13 @@ sub group :Chained('base') :PathPart('') :CaptureArgs(0) {
     my $params = $c->request->query_params;
     my $id = $params->{'group_id'};
 
-    $c->stash(group => $c->stash->{resultset}->find($id));
+    if ($id eq ''){
+	$c->log->debug("*** INSIDE GROUP METHOD no given ID ***");
+    }else {
+	$c->stash(group => $c->stash->{resultset}->find($id));
+	# Print a message to the debug log
+	$c->log->debug("*** INSIDE GROUP METHOD for group_id=$id ***");
+    }
 
     # Make sure the lookup was successful.  You would probably
     # want to do something like this in a real app:
@@ -276,6 +282,7 @@ sub set_users :Private {
     my %where = (appartient_utilisateur_id => {-not_in => $users},
 		 appartient_groups_id => $group->groups_id);
     my $rs_d = $c->model('DB::Appartient')->search(\%where);
+    #pb de deletions avec d'autres groupes!
     $rs_d->delete;
     
     #set new users

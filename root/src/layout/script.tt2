@@ -1,37 +1,47 @@
 <!-- pour utiliser une police externe (depuis google fonts) à utiliser !!! -->
-    <link
-       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,600italic,700italic"
-       rel="stylesheet" type="text/css">
-	 
-	<!-- Bootstap -->  
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,600italic,700italic"
+  rel="stylesheet" type="text/css">
 
-	<!-- CSS: Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-		  crossorigin="anonymous">
+<!-- Bootstap -->  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
-	<!-- Javascript: Bootstrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-	    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-			crossorigin="anonymous"></script>
+<!-- CSS: Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+      crossorigin="anonymous">
 
-	<!-- Javascript: JQuery -->
-    <script type="text/javascript"
-	    src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Javascript: Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous"></script>
+
+<!-- Javascript: JQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 
-    <!-- Javascript: DataTables -->
-    <script type="text/javascript"
-	    src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript"
-			src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+<!-- Javascript: DataTables -->
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
 
-	<!-- CSS: DataTables spécifique pour bootstrap -->
-    <link rel="stylesheet"
-	  type="text/css"
-	  href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" />
-	  <!-- CSS for multi select JQuery -->
-    <link href="[% c.uri_for('/static/css/multi-select.css') %]" media="screen" rel="stylesheet" type="text/css">
+<!-- CSS: DataTables spécifique pour bootstrap -->
+<link rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" />
+
+<!-- CSS for multi select JQuery -->
+<link href="[% c.uri_for('/static/css/multi-select.css') %]" media="screen" rel="stylesheet" type="text/css">
+
+<!-- Script and CSS for DHTMLX Scheduler -->
+<script type="text/javascript" src="[% c.uri_for('/static/scheduler/dhtmlxscheduler.js') %]"></script>
+
+<link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/scheduler/dhtmlxscheduler_material.css') %]" ></link>
+  
+
+
+  
