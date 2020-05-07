@@ -1,0 +1,136 @@
+[%# -*- mode: html; coding: utf-8; -*- %]
+
+<form id="planning_form"
+      name="planning_form"
+      method="post"
+      action="[% c.uri_for(c.controller.action_for('post_form')) %]"
+      enctype="multipart/form-data">
+  
+  <div id="main_imput">
+    <h2>Create New Planning</h2>
+    <div class="row">
+      <div id="input_name" class="col">
+	<div class="col-8">
+	  [%~ INCLUDE layout/champ.tt
+	  nom="planning_name" valeur="$valid_args.planning_name"
+	  label="Nom du Planning" msg="$msgs.planning_name" %]
+	</div>
+      </div>
+      
+      <div id="main_controller" class="col">
+	<!--Bouton de validation du nom et display du reste du form-->
+	<button id="valid_name" type="button" class="btn-success">Poursuivre</button>
+	<button id="valid_week" type="button" class="btn-success" style="display:none;">Poursuivre</button>
+	<button id="valid_sday" type="submit" class="btn-success" style="display:none;">Valider la Creation</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="main_week">
+    <h3 id="main_week_header" style="display:none;">Week Edition</h3>
+    <div id="week_validated">
+    </div>
+    <div id="week_controller" tabindex="-1">
+      <h3 id="week_controller_header" style="display:none;">Week Controller</h3>
+    </div>
+    <div id="week_edition" tabindex="-1">
+    </div>
+  </div>
+
+  <div id="main_sday">
+    <h3 id="main_sday_header" style="display:none;">Special Day Edition</h3>
+    <div id="sday_validated">
+    </div>
+    <div id="sday_controller">
+      <h3 id="sday_controller_header" style="display:none;">Special Day Controller</h3>
+    </div>
+    <div id="sday_edition">
+      <h3 id="sday_edition_header" style="display:none;">Special Day Editor</h3>
+    </div>
+  </div>
+<!--
+  <div id="week" class="row">
+    <div id="day_1" class="col-2">
+      <h3>Lundi</h3>
+      <div>
+	<label for="day_1_nb">Nb ppersonnes</label>
+	<input id="day_1_nb" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_start_date">Start date</label>
+	<input id="day_1_start_date" class="" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_start_time">Start time</label>
+	<input id="day_1_start_time" class="" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_end_date">End date</label>
+	<input id="day_1_end_date" class="" type="text"></input>
+      </div> 
+      <div>
+	<label for="day_1_end_time">End time</label>
+	<input id="day_1_end_time" class="" type="text"></input>
+      </div>
+    </div>
+  </div>
+  -->
+  <!--
+  <p/>
+  <div id="sday_header"class="row">
+    <div class="col">
+      <button id="sday_add" type="button" class="btn-success">+ Add</button>
+    </div>
+    <div class="col">
+      <button id="sday_validate" type="button" class="btn-success">Validate</button>
+    </div>
+  </div>
+
+  <p/>
+  <div id="sday_x" class="row">
+    <div id="sday_head_x" class="col-6">
+      <h3>Special Day N_x</h3>
+      <div>
+	<label for="sday_x_type">Type Spécial Day</label>
+	<input id="sday_x_type" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="sday_x_start_date">Start Date</label>
+	<input id="sday_x_start_date" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="sday_x_end_date">End Date</label>
+	<input id="sday_x_type" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="sday_x_rule">Rule</label>
+	<input id="sday_x_rule" class="form-control" type="text"></input>
+      </div>
+    </div>
+    <div id="sday_x_input" class="col-6">
+      <div>
+	<label for="day_1_nb">Nb ppersonnes</label>
+	<input id="day_1_nb" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_start_date">Start date</label>
+	<input id="day_1_start_date" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_start_time">Start time</label>
+	<input id="day_1_start_time" class="form-control" type="text"></input>
+      </div>
+      <div>
+	<label for="day_1_end_date">End date</label>
+	<input id="day_1_end_date" class="form-control" type="text"></input>
+      </div> 
+      <div>
+	<label for="day_1_end_time">End time</label>
+	<input id="day_1_end_time" class="form-control" type="text"></input>
+      </div>
+    </div>
+  </div>
+  -->
+</form>
+
+<script src="[% c.uri_for('/static/js/planning_create.js') %]"></script>

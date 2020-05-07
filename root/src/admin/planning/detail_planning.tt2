@@ -4,7 +4,7 @@
 
 <div class="row">
 
-  <div class="col-6">
+  <div class="col-4">
 	<ul>
 	  <li>Planning ID : [% planning.planning_id |html %]</li>
 	  <li>Planning Type : [% planning.planning_type |html %]</li>
@@ -13,19 +13,19 @@
 	</ul>
   </div>
   
-  <div class="col-6">
+  <div class="col-8">
 	Show Planning user appartenance
-	
-	<ul style="list-style-type:none; width:100%">
+	<div class="row">
+	  <div class="col-8">
+	    Prénom Nom
+	  </div>
+	  <div class="col-4">
+	    Nombre de créneau
+	  </div>
+	</div>
+	<ul class="scroll-list" style="list-style-type:none; width:100%">
 	  <li>
-		<div class="row">
-		  <div class="col-6">
-			Prénom Nom
-		  </div>
-		  <div class="col-6">
-			Nombre de créneau
-		  </div>
-		</div>
+
 	  </li>
 	  [% FOREACH utilisateur = participants %]
 	  <li>
@@ -44,7 +44,7 @@
 	</ul>
   </div>
 
-<span> Nombre de créneaux: [% creneaux.size %] </span>
+<span> Nombre de créneaux: [% creneaux.size %] </span><span>Show creneaux type and nb</span>
 </div class="row">
 <table id="liste_creneaux" class="table table-condensed table-responsive">
   <thead>
@@ -111,4 +111,11 @@
   $('#liste_creneaux').addClass('table table-striped table-bordered');
   });
 </script>
-
+<style>
+.scroll-list{
+    max-height: 150px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+</style>

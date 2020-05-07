@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--creneau type
+<creneau>
+  <rule/> # if is spécial day
+  <nbPers/>
+  <startDate/>
+  <startTime/>
+  <endDate/>
+  <endTime/>
+</creneau>
+-->
+
+<plannings>
+  <planning>
+    <name/>
+    <type/>
+    <week>
+      <monday>
+	<creneau> <!--x time-->
+	  <nbPers/>
+	  <startDate/> <!--Relatif date -->
+	  <startTime/> <!--Relatif date -->
+	  <endDate/>
+	  <endTime/>
+	</creneau>
+      </monday>
+      <tuesday>
+      </tuesday>
+      <wenesday>
+      </wenesday>
+      <thursday>
+      </thursday>
+      <friday>
+      </friday>
+      <saturday>
+      </saturday>
+      <sunday>
+      </sunday>
+    </week>
+    <sDays>
+      <sDay> <!--x time-->
+	<startDate/> <!--Absolute date -->
+	<endDate/> <!--Absolute date -->
+	<creneau> <!--x time-->
+	  <rule/>
+	  <nbPers/>
+	  <startDate/> <!--Relatif date -->
+	  <startTime/> <!--Relatif date -->
+	  <endDate/>
+	  <endTime/>
+	</creneau>
+      </sDay>
+    </sDays>
+  </planning>
+</plannings>
