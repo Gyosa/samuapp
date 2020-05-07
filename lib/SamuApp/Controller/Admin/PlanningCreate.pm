@@ -33,16 +33,54 @@ sub index :Path :Args(0) {
     $c->response->body('Matched SamuApp::Controller::Admin::PlanningCreate in Admin::PlanningCreate.');
 }
 
-sub create_planning {
-	
+sub list :Path('list') :Args(0) {
+    my ($self, $c) = @_;
+
 }
 
-sub create_creneaux ($$$) {
-	my ( $self, $c, $planning) = @_;
-	#planning is resultset of Planning from DB
+sub create_planning :Path('create_planning') :Args(0) {
+    my ($self, $c) = @_;
+    
+    $c->stash( template => 'admin/planning/planning_create.tt2' );
+}
 
-	$c->log->debug("id planning : $planning->planning_id ");
-	return 1;
+sub post_form :Path('post_form') :Args(0) {
+    my ($self, $c) = @_;
+    
+    my $params = $c->request->body_params;
+
+    $c->log->debug('BODY PARAMS'. Dumper($params));
+
+    $c->forward('fdv_profile');
+    my $profile = $c->stash->{dfv_profile};
+
+    my $result = Data::FormValidator->check( $params, $profile);
+
+    $c->log->debug('DFV RESULT'.Dumper($result));
+    if ($result->has_invalid || $result->has_missing){
+	#Send Global Message
+	$c->stash( template => 'admin/planning/planning_create.tt2' );
+    }else{#edit xml file
+	#open file
+
+	#add node
+    }
+	
+
+}
+
+sub open_file ($$){
+	my ($c, $name_file) = @_;
+	# need to match with file name
+	my @files = $c->model('File')->list;
+	#my $test = Dumper(@files);
+	
+	my $file = "$files[0]->{dir}/$files[0]->{file}";
+	$c->log->debug("file name $file");
+	
+	my $doc = new XML::LibXML->load_xml(location => $file);
+	$c->log->debug(Dumper($doc));
+	return $doc;
 }
 
 =encoding utf8

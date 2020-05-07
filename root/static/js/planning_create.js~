@@ -1,0 +1,220 @@
+<script>
+    //button to valid name, valid week onclick event
+document.getElementById("valid_name").onclick = display_week;
+document.getElementById("valid_week").onclick = display_sday;
+    
+
+function display_week (){
+    //hide button valid name
+    document.getElementById("valid_name").style.display = "none";
+    // display week input
+    set_week();
+    //display button valid week
+    document.getElementById("valid_week").style.display = "inline";
+    // dispaly section header
+    document.getElementById("main_week_header").style.display = "inline";
+}
+
+// var for special day adding
+var sday_id = 1;
+// Display specail Day header
+function display_sday(){
+    var sday_header = create_sday_controller();
+    document.getElementById("sday_controller").appendChild(sday_header);
+    // actions(Events) for special day header [LIST]
+    document.getElementById("sday_add").onclick = add_sday;
+    document.getElementById("sday_val").onclick = val_sday;
+    
+    // remove week button 
+    document.getElementById("valid_week").style.display = "none";
+    // add sbay validation button and event (submit button)
+    document.getElementById("valid_sday").style.display = "inline";
+    // display header for Special day
+    document.getElementById("sday_validated_header").style.display = "inline";
+    document.getElementById("sday_controller_header").style.display = "inline";
+    document.getElementById("sday_edition_header").style.display = "inline";
+}
+
+
+//function associé a Day Controller
+function add_sday(){
+    var sday = create_sday(sday_id);
+    sday_id ++;
+    document.getElementById("sday_edition").appendChild(sday);
+}
+function val_sday(){}
+
+// fonctions for jour spéciaux
+function display_s_days_header (){}
+function display_s_days () {}
+
+function set_week () {    
+    //set up variable
+    //day 0 to 6
+    //var days_id = [0, 1, 2, 3, 4, 5, 6];
+    var day_name = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    //label 0 to 4
+    //var input_id = [0, 1, 2, 3, 4];
+    var input_id = ["nb", "start_date", "start_time", "end_date", "end_time"];
+    var input_label = ["Nombre de Personne", "Start Date", "Start Time", "End Time", "End Time"];
+    
+
+    //start creation of a week block
+    //Div Week
+    var div_week= document.createElement('div');
+    div_week.setAttribute('id', 'input_week');
+    div_week.setAttribute('class', 'row');
+    // for all week days
+    for (let day = 0; day < 7; day++){
+	//Div Day
+	var div_day = document.createElement('div');
+	div_day.setAttribute('id', ''.concat("day_",day));
+	div_day.setAttribute('class', 'col-3');
+	//header
+	var header = document.createElement('h3');
+	header.textContent = day_name[day];
+	div_day.appendChild(header);
+	// for all inputs
+	for (let i = 0; i < 5; i++) {
+	    var div = document.createElement('div');
+	    div.setAttribute('class', 'row');
+	    // create label balise
+	    var label = document.createElement('label');
+	    label.setAttribute('for', ''.concat("day_", day, "_", input_id[i]));
+	    label.textContent = input_label[i];
+	    //create input balise
+	    var input = document.createElement('input');
+	    input.setAttribute('id', ''.concat("day_", day, "_", input_id[i]));
+	    input.setAttribute('class', 'form-control');
+	    input.setAttribute('type', 'text');
+	    
+	    //insert element inside each other
+	    div.appendChild(label);
+	    div.appendChild(input);
+	    div_day.appendChild(div);
+	}
+	div_week.appendChild(div_day);
+	//div_week.appendChild(document.createElement('hr'));
+    }
+    
+    //add to docuemnt
+    document.getElementById("main_week").appendChild(div_week);
+}
+// defined creneau_header
+function create_creneau_header(id){
+    // return div Element with creneaux header input
+
+    //label 0 to 3
+    //var input_id = [0, 1, 2, 3];
+    var input_id = ["type", "start_date", "end_date", "rule"];
+    var input_label = ["Type Special Day", "Start Date", "End Date", "Rule"];
+    
+    var div_head = document.createElement('div');
+    div_head.setAttribute('id', ''.concat('sday_head_', id));
+    div_head.setAttribute('class', 'col-6');
+    var title = document.createElement('h3');
+    title.textContent = ''.concat('Special Day N°', id);
+    div_head.appendChild(title);
+
+    for (let i = 0; i < 4; i++){
+	var div = document.createElement('div');
+	
+	var label = document.createElement('label');
+	label.setAttribute('for', ''.concat('sday_', id, '_', input_id[i]));
+	label.textContent = input_label[i];
+	
+	var input = document.createElement('input');
+	input.setAttribute('id', ''.concat("sday_", id, "_", input_id[i]));
+	input.setAttribute('class', 'form-control');
+	input.setAttribute('type', 'text');
+
+	div.appendChild(label);
+	div.appendChild(input);
+	div_head.appendChild(div);
+    }
+    return div_head;
+    
+}
+// defined block creneau
+function create_creneau_input(id) {
+    //return div Element with creneaux configuration
+    
+    //label 0 to 4
+    //var input_id = [0, 1, 2, 3, 4];
+    var input_id = ["nb", "start_date", "start_time", "end_date", "end_time"];
+    var input_label = ["Nombre de Personne", "Start Date", "Start Time", "End Time", "End Time"];
+    
+    //Div Day
+    var div_day = document.createElement('div');
+    div_day.setAttribute('id', ''.concat("sday_",id,'input'));
+    div_day.setAttribute('class', 'col-6');
+    // for all inputs
+    for (let i = 0; i < 5; i++) {
+	var div = document.createElement('div');
+	div.setAttribute('class', 'row');
+	// create label balise
+	var label = document.createElement('label');
+	label.setAttribute('for', ''.concat("sday_", id, "_", input_id[i]));
+	label.textContent = input_label[i];
+	//create input balise
+	var input = document.createElement('input');
+	input.setAttribute('id', ''.concat("sday_", id, "_", input_id[i]));
+	input.setAttribute('class', 'form-control');
+	input.setAttribute('type', 'text');
+	
+	//insert element inside each other
+	div.appendChild(label);
+	div.appendChild(input);
+	div_day.appendChild(div);
+    }
+    return div_day;
+}
+// defined special block day
+function create_sday (id) {
+    var div_sday = document.createElement('div');
+    div_sday.setAttribute('id', ''.concat('sday', id));
+    div_sday.setAttribute('class', 'row');
+
+    var div_head = create_creneau_header(id);
+    var div_input = create_creneau_input(id);
+    div_sday.appendChild(div_head);
+    div_sday.appendChild(div_input);
+    //div_sday.appendChild(document.createElement('hr'));
+
+    return div_sday;
+}
+// create Special Day Controller
+function create_sday_controller (){
+    var div_sday_header = document.createElement('div');
+    div_sday_header.setAttribute('id', 'sday_header_control');
+    div_sday_header.setAttribute('class', 'row');
+
+    var div_add = document.createElement('div');
+    div_add.setAttribute('class', 'col');
+    var button = document.createElement('button');
+    button.setAttribute('id', 'sday_add');
+    button.setAttribute('type', 'button');
+    button.setAttribute('class', 'btn-success');
+    button.textContent = "Add Day";
+
+    div_add.appendChild(button);
+    div_sday_header.appendChild(div_add);
+
+    var div_val = document.createElement('div');
+    div_val.setAttribute('class', 'col');
+    var button = document.createElement('button');
+    button.setAttribute('id', 'sday_val');
+    button.setAttribute('type', 'button');
+    button.setAttribute('class', 'btn-success');
+    button.textContent = "Val Day";
+
+    div_val.appendChild(button);
+    div_sday_header.appendChild(div_val);
+
+    return div_sday_header;
+    
+
+}
+
+
+</script>
