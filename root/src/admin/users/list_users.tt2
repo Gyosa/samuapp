@@ -2,7 +2,7 @@
 <span>
 	<p>
 		HTML::FormHandler:
-    	<a href="[% c.uri_for(c.controller.action_for('create')) %]">Create</a>
+    	<a href="[% c.uri_for(c.controller.action_for('form')) %]">Create</a>
 	</p>
 </span>
 
@@ -34,7 +34,7 @@
 				<a href="[% c.uri_for('/') %]admin/users/show?user_id=[% utilisateur.utilisateur_id |html %]" title="show" class="btn bn-default">
 				   <span class="glyphicon glyphicon-eye-open"></span>
 				</a>
-				<a href="[% c.uri_for(c.controller.action_for('edit')) %]?user_id=[% utilisateur.utilisateur_id |html %]" title="edit" class="btn bn-default">
+				<a href="[% c.uri_for(c.controller.action_for('form')) %]?user_id=[% utilisateur.utilisateur_id |html %]" title="edit" class="btn bn-default">
 				   <span class="glyphicon glyphicon-pencil"></span>
 				</a>
 				<a href="[% c.uri_for('/') %]admin/users/delete?user_id=[% utilisateur.utilisateur_id |html %]" title="delete" class="btn bn-default">

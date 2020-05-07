@@ -34,43 +34,6 @@ sub index :Path :Args(0) {
     $c->response->body('Matched SamuApp::Controller::Admin::Users in Admin::Users.');
 }
 
-sub list :Path('list') :Args(0) {
-	my ( $self, $c ) = @_;
-	my $text = "liste des utilisateurs";
-	
-	$c->stash(utilisateurs => [$c->model('DB::Utilisateur')->all]);
-
-	$c->stash(template => 'admin/users/list_users.tt2', text =>$text);
-
-}
-
-=head set prority for same path but no args
-sub show_wo :Path('show') :Args(0) {
-	my ( $slef, $c ) = @_;
-
-	$c->response->body('Not a good url');
-}
-=cut
-
-use Types::Standard 'Int';
-sub show_wi :Path('show') :Args(0) QueryParam('user_id'){
-	my ( $self, $c ) = @_;
-	# récupération des paramètres de l'url
-	# en faire une fonction qui retour une hash
-	my $params = $c->request->query_params;	
-	
-	$c->stash(id =>  Dumper($params->{'user_id'}));
-
-	# clause where de l'uilisateur en question
-	my %where = ( "utilisateur_id" => $params->{'user_id'});
-
-	# affichage template
-	$c->stash(utilisateur => $c->model('DB::Utilisateur')->find($params->{'user_id'}));
-	
-	$c->stash(template => 'admin/users/detail_user.tt2');
-
-}
-
 =head2 base
  
 Can place common logic to start chained dispatch here
@@ -93,24 +56,198 @@ Fetch the specified book object based on the book ID and store
 it in the stash
  
 =cut
- 
-sub object :Chained('base') :PathPart('') :CaptureArgs(0) {
+
+sub user :Chained('base') :PathPart('') :CaptureArgs(0) {
     my ($self, $c) = @_;
+    $c->log->debug("*** USER METHOD BEFORE REQUEST ***");
     my $params = $c->request->query_params;
     my $id = $params->{'user_id'};
  
-    # Find the book object and store it in the stash
-    $c->stash(object => $c->stash->{resultset}->find($id));
- 
-    # Make sure the lookup was successful.  You would probably
-    # want to do something like this in a real app:
-    #   $c->detach('/error_404') if !$c->stash->{object};
-    die "User $id not found!" if !$c->stash->{object};
- 
-    # Print a message to the debug log
-    $c->log->debug("*** INSIDE OBJECT METHOD for obj id=$id ***");
+    if ( $id eq '') {
+	$c->log->debug("*** INSIDE USER METHOD no given ID ***");
+    }else{
+	$c->stash(utilisateur => $c->stash->{resultset}->find($id)); 
+	# Print a message to the debug log
+	$c->log->debug("*** INSIDE USER METHOD for user_id=$id ***");
+    }
 }
 
+sub list :Chained('base') :PathPart('list') :Args(0) {
+	my ( $self, $c ) = @_;
+	my $text = "liste des utilisateurs";
+	
+	$c->stash(utilisateurs => [$c->model('DB::Utilisateur')->all]);
+
+	$c->stash(template => 'admin/users/list_users.tt2', text =>$text);
+
+}
+
+#QueryParam('user_id')
+sub show :Chained('user') :PathPart('show') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $user = $c->stash->{utilisateur};
+    #show user group appartenace
+    my $groups = [$user->appartient_groups];
+    
+    for my $group (@$groups){
+	$c->log->debug("GROUP".Dumper($group));
+	my $nb;
+	my $rs = $c->model('DB::Appartient')->search({appartient_groups_id => $group->groups_id});
+	$nb = scalar($rs);
+	$group->{nb_utilisateurs} = $nb;
+    }
+    $c->stash->{groups} = $groups;
+
+    #show user planning appartenance
+    $c->stash->{plannings} = [$user->participeplanning_plannings];
+    
+    $c->stash(template => 'admin/users/detail_user.tt2');
+
+}
+
+sub form :Chained('user') :PathPart('form') :Args(0){
+    my ( $self, $c ) = @_;
+
+    #make test for update without fail DFV before
+    if (defined $c->stash->{utilisateur}){
+	$c->stash->{hide_password} = 1;
+	if (!defined $c->stash->{valid_args}){
+	my $user = $c->stash->{utilisateur};
+	my %valid_args = (user_auth => $user->utilisateur_auth,
+			  user_role => $user->utilisateur_role,
+			  user_name => $user->utilisateur_prenom,
+			  user_lastname => $user->utilisateur_nom,
+			  user_mail => $user->utilisateur_mail,
+			  user_phone => $user->utilisateur_phone);
+	$c->stash->{valid_args} = \%valid_args;
+	}		  
+    }
+
+    $c->stash( template => 'admin/users/form_users.tt2');
+
+}
+
+sub post_form :Chained('user') :PathPart('postform') :Args(0) {
+    my ($self, $c) = @_;
+
+    my $params = $c->request->body_params;
+
+    $c->forward('dfv_profile');
+    my $profile = $c->stash->{dfv_profile};
+
+    my $result = Data::FormValidator->check( $params, $profile);
+    $c->log->debug("DFV result".Dumper($result));
+
+    if ($result->has_invalid || $result->has_missing){
+	#send Global message !
+
+	$c->stash->{valid_args} = $result->valid;
+	$c->stash->{msgs} = $result->msgs;
+
+	$c->go('form');
+    }else{ #insert value in Database
+	my $args = $result->valid;
+	my $user_data = { utilisateur_auth => $args->{user_auth},
+			  utilisateur_role => $args->{user_role},
+			  utilisateur_prenom => $args->{user_name},
+			  utilisateur_nom => $args->{user_lastname},
+			  utilisateur_mail => $args->{user_mail},
+			  utilisateur_phone => $args->{user_phone}
+	};
+
+	# in case of creation
+	my $user;
+	if ( !defined $c->stash->{utilisateur} ) {
+	    #insertion du password dans la data
+	    $user_data->{utilisateur_password} = $args->{user_password};
+	    # create user
+	    $user = $c->stash->{resultset}->create($user_data);
+	}else{
+	    #update user
+	    $user = $c->stash->{utilisateur};
+	    $user->update($user_data);
+	}
+
+	#redirect to user list
+	$c->res->redirect( $c->uri_for_action('admin/users/list'));
+    }
+    
+}
+
+sub delete :Chained('user') :PathPart('delete') :Args(0) {
+    my ($self , $c) = @_;
+
+    die "$c->stash->{utilisateur} not defined" if !defined $c->stash->{utilisateur};
+
+    $c->stash->{utilisateur}->delete;
+
+    $c->res->redirect( $c->uri_for_action('admin/users/list'));
+    
+}
+
+    
+sub dfv_profile :Private {
+    my ($self, $c ) = @_;
+    my $profile = {
+	required => [ qw/user_auth user_role user_name user_lastname user_mail user_phone/ ],
+        optional => [ qw/user_password/ ],
+        filters => 'trim',
+        constraint_methods => {
+	    user_auth => [{
+		constraint_method => qr/\d*/,
+		name => 'auth',
+			  }],
+	    #specifique from psql
+	    user_password => [{
+		constraint_method => qr/\d*/,
+		name => 'password',
+			  }],
+	    #specifique from psql
+	    user_role => [{
+		constraint_method => qr/\d*/,
+		name => 'role',
+			  }],
+	    user_name => [{
+		constraint_method => qr/\d*/,
+		name => 'prenom',
+			    }],
+	    user_lastname => [{
+		constraint_method => qr/\d*/,
+		name => 'nom',
+			 }],
+	    user_mail => [{
+		constraint_method => qr/\d*/,
+		name => 'mail',
+			  }],
+	    user_phone => [{
+		constraint_method => qr/\d*/,
+		name => 'phone',
+			   }]
+
+	       
+        },
+	msgs => {
+            format => '%s',
+            prefix => '',
+            missing => 'obligatoire',
+            invalid => 'valeur incorrecte',
+            constraints => {
+		user_auth => 'Not balnk & caractères alpanumériques',
+		user_password => 'Not Blank',
+		user_role => 'Not balnk',
+		user_name => 'Not balnk',
+		user_lastname => 'Not balnk',
+		user_mail => 'Not blank',
+		user_phone => 'Not balnk',
+            }
+	    
+        },
+    };
+    
+    $c->stash->{dfv_profile} = $profile;
+}
+=head2
 use SamuApp::Form::Users;
 sub create :Chained('base') :PathPart('create') :Args(0) {
 	my ( $self, $c ) = @_;
@@ -134,20 +271,23 @@ sub form {
 	$c->response->redirect($c->uri_for($self->action_for('list'),{mid => $c->set_status_msg("user added")}));
 }
 
-sub edit  :Chained('object') :PathPart('edit') :Args(0) {
+sub edit  :Chained('user') :PathPart('edit') :Args(0) {
 	my ( $self, $c ) = @_;
 
-    return $self->form($c, $c->stash->{object});
+    return $self->form($c, $c->stash->{user});
 }
 
-sub delete :Chained('object') :PathPart('delete') :Args(0) {
+sub delete :Chained('user') :PathPart('delete') :Args(0) {
 	my ( $self, $c ) = @_;
-	$c->stash->{object}->delete;
+	$c->stash->{user}->delete;
 
 	$c->stash->{status_msg} = "User deleted";
 
 	$c->forward('list');
 }
+
+=cut
+
 
 =encoding utf8
 

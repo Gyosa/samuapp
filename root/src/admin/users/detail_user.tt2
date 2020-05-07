@@ -1,18 +1,144 @@
 [%# -*- mode: html; coding: utf-8; -*- %]
+<div class="row">
+  <div class="col-4">
+    <span> User ID with arg : [% id %]</span>
+    <ul>
+      <li>User ID : [% utilisateur.utilisateur_id |html %]</li>
+      <li>User Auth : [% utilisateur.utilisateur_auth |html %]</li>
+      <li>User Rôle : [% #utilisateur.utilisateur_role |html %]</li>
+      <li>User Nom : [% utilisateur.utilisateur_nom |html %]</li>
+      <li>User Prénom : [% utilisateur.utilisateur_prenom |html %]</li>
+      <li>User Mail : [% utilisateur.utilisateur_mail |html %]</li>
+      <li>User Téléphone : [% utilisateur.utilisateur_phone |html %]</li>
+    </ul>
+  </div>
+  
+  <div class="col-8">
+    <span>Show User groups appartenance !!!</span>
+    <table id="liste_groups" class="table table-condensed table-responsive">
+      <thead>
+	<tr>
+	  <th>N°id</th>
+	  <th>name</th>
+	  <th>Nombre de membre</th>
+	  <th>Description</th>
+	  <th></th>
+	</tr>
+      </thead>
+      
+      <tbody>
+	[% FOREACH group = groups %]
+	<tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
+	  <td>[% group.groups_id |html %]</td>
+	  <td>[% group.groups_name |html %]</td>
+	  <td>[% group.nb_utilisateurs |html %]</td>
+	  <td>[% group.groups_description |html %]</td>
+	  <td style="white-sapce: nowrap">
+	    <a href="[% c.uri_for('/') %]admin/group/show?group_id=[% group.groups_id |html %]" title="show" class="btn bn-default">
+	      <span class="glyphicon glyphicon-eye-open"></span>
+	    </a>
+	    <a href="[% c.uri_for(c.controller.action_for('form')) %]?group_id=[% group.groups_id |html %]" title="edit" class="btn bn-default">
+	      <span class="glyphicon glyphicon-pencil"></span>
+	    </a>
+	    <a href="[% c.uri_for(c.controller.action_for('delete')) %]?group_id=[% group.groups_id |html %]" title="delete" class="btn bn-default">
+	      <span class="glyphicon glyphicon-trash"></span>
+	    </a>
+	  </td>
+	</tr>
+	[% END %]
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+  <span>Show User planning appartenance !!!</span>
+  <table id="liste_planning" class="table table-condensed table-responsive">
+    <thead>
+      <tr>
+	<th>N°id</th>
+	<th>Planning Type</th>
+	<th>Start Date</th>
+	<th>End Date</th>
+	<th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      [% FOREACH planning = plannings %]
+      <tr [% IF loop.count % 2 != 0 %] class="odd"[% END %]>
+	<td>[% planning.planning_id |html %]</td>
+	<td>[% planning.planning_type |html %]</td>
+	<td>[% planning.planning_start_date |html %]</td>
+	<td>[% planning.planning_end_date |html %]</td>
+	<td style="white-sapce: nowrap">
+	  <a href="[% c.uri_for(c.controller.action_for('show_wi')) %]?planning_id=[% planning.planning_id |html %]" title="show" class="btn bn-default">
+	    <span class="glyphicon glyphicon-eye-open"></span>
+	  </a>
+	  <a href="[% c.uri_for(c.controller.action_for('edit')) %]?planning_id=[% planning.planning_id |html %]" title="edit" class="btn bn-default">
+	    <span class="glyphicon glyphicon-pencil"></span>
+	  </a>
+	</td>
+      </tr>
+      [% END %]
+    </tbody>
+    
+  </table>
+</div>
 
-<span> User ID with arg : [% id %]</sapn>
+<!-- voir documentation sur <http://datatables.net/manual/index> -->
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#liste_groups').DataTable( {
+       "renderer": "bootstrap",
+       "scrollX": true,
+       "autoWidth": false,
+       "columnDefs": [
+         { "orderable": false, "targets": -1 } // la dernière colonne n'est pas triable
+       ],
+      "language": {
+        "lengthMenu": "Afficher _MENU_ lignes par page",
+        "zeroRecords": "Aucun client à afficher",
+        "info": "Page _PAGE_ sur _PAGES_",
+        "infoEmpty": "Aucun client dans la table",
+        "infoFiltered": "(sélection à partir d'un total de _MAX_ clients)",
+        pagingType: 'full',
+        paginate: {
+            first:    'Premier',
+            previous: 'Précédent',
+            next:     'Suivant',
+            last:     'Dernier',
+         },
+      }
+    });
+  $('#liste_groups').addClass('table table-striped table-bordered');
+  });
+</script>
 
-
-<ul>
-	<li>User ID : [% utilisateur.utilisateur_id |html %]</li>
-	<li>User Auth : [% utilisateur.utilisateur_auth |html %]</li>
-	<li>User Rôle : [% #utilisateur.utilisateur_role |html %]</li>
-	<li>User Nom : [% utilisateur.utilisateur_nom |html %]</li>
-	<li>User Prénom : [% utilisateur.utilisateur_prenom |html %]</li>
-	<li>User Mail : [% utilisateur.utilisateur_mail |html %]</li>
-	<li>User Téléphone : [% utilisateur.utilisateur_phone |html %]</li>
-</ul>
-
-<span>Show User planning appartenance !!!</span>
-<p/>
-<span>Show User groups appartenance !!!</span>
+<!-- voir documentation sur <http://datatables.net/manual/index> -->
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#liste_planning').DataTable( {
+       "renderer": "bootstrap",
+       "scrollX": true,
+       "autoWidth": false,
+       "columnDefs": [
+         { "orderable": false, "targets": -1 } // la dernière colonne n'est pas triable
+       ],
+      "language": {
+        "lengthMenu": "Afficher _MENU_ lignes par page",
+        "zeroRecords": "Aucun client à afficher",
+        "info": "Page _PAGE_ sur _PAGES_",
+        "infoEmpty": "Aucun client dans la table",
+        "infoFiltered": "(sélection à partir d'un total de _MAX_ clients)",
+        pagingType: 'full',
+        paginate: {
+            first:    'Premier',
+            previous: 'Précédent',
+            next:     'Suivant',
+            last:     'Dernier',
+         },
+      }
+    });
+  $('#liste_planning').addClass('table table-striped table-bordered');
+  });
+</script>

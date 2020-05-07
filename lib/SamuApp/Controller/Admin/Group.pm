@@ -55,14 +55,9 @@ sub group :Chained('base') :PathPart('') :CaptureArgs(0) {
 	# Print a message to the debug log
 	$c->log->debug("*** INSIDE GROUP METHOD for group_id=$id ***");
     }
-
-    # Make sure the lookup was successful.  You would probably
-    # want to do something like this in a real app:
-    #   $c->detach('/error_404') if !$c->stash->{object};
-    # die "group $id not found!" if !$c->stash->{group};
  
     # Print a message to the debug log
-    $c->log->debug("*** INSIDE GROUP METHOD for group_id=$id ***");
+    #$c->log->debug("*** INSIDE GROUP METHOD for group_id=$id ***");
 	 
 }
 
@@ -103,6 +98,7 @@ sub form :Chained('group') :PathPart('form') :Args(0){
     $c->log->debug("Dump ValidArgs:".Dumper($c->stash->{valid_args}));
     $c->log->debug("Dump msgs:".Dumper($c->stash->{msgs}));
 
+    #make test for update without fail DFV before
     if (defined $c->stash->{group} && !defined $c->stash->{valid_args}) {
 	$c->stash->{valid_args}->{groups_name} = $c->stash->{group}->groups_name;
 	$c->stash->{valid_args}->{groups_description} = $c->stash->{group}->groups_description;
@@ -148,10 +144,14 @@ sub post_form :Chained('group') :PathPart('post_form') :Args(0) {
 	    $group = $c->model('DB::Group')->create($group_data);
 	}else{
 	    #update group
-	    $group = $c->model('DB::Group')->find($c->stash->{group}->groups_id);
+	    $group = $c->stash->{group};
 	    $group->update($group_data);
 	}
 
+	#if groups_utilisateurs is not defined, set empty array
+	if (!defined $args->{groups_utilisateurs}){
+	    $args->{groups_utilisateurs} = [];
+	}
 	# call methods for user
 	$c->log->debug("GROUP".$group);
 	$c->log->debug("USERS".$args->{groups_utilisateurs});
@@ -168,8 +168,7 @@ sub delete :Chained('group') :PathPart('delete') :Args(0) {
 
     die "$c->stash->{group} not defined" if !defined $c->stash->{group};
     
-    my $group = $c->model('DB::Group')->find($c->stash->{group}->groups_id);
-    $group->delete;
+    $c->stash->{group}->delete;
     
     $c->res->redirect( $c->uri_for_action('admin/group/list'));
 }
@@ -198,6 +197,8 @@ sub dfv_profile :Private {
 		       my $user = $c->model('DB::Utilisateur')->find($user_id);
 		       $flag = 0 && last if ( !defined $user );	   
 		   }
+		   if (scalar(@users_id) == 0){$flag = 0;}
+		   
 		   return $flag;
 	       },
 	       name => "groups_utilisateurs",

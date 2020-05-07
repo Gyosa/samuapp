@@ -3,6 +3,64 @@
 [% META title = 'Create/Update Book' %]
  
 [%# Render the HTML::FormHandler Form %]
-[% form.render %]
+[%# form.render %]
+<
+<form name="form_group"
+method="post"
+action="[% c.uri_for(c.controller.action_for('post_form')) %]?user_id=[% utilisateur.utilisateur_id%]"
+enctype="multipart/form-data">
+
+  <h2>Create New user</h2>
+  <div>
+    [%~ INCLUDE layout/champ.tt
+    nom="user_auth" valeur="$valid_args.user_auth"
+    label="Autentifiant" msg="$msgs.user_auth" %]
+  </div>
+  
+  [% IF not hide_password  %] 
+  <div>
+    [%~ INCLUDE layout/champ.tt
+    nom="user_password" valeur="$valid_args.user_password"
+    label="Mot de passe" msg="$msgs.user_password" %]
+  </div>
+  [% END %]
+  
+  <div>
+    [%~ INCLUDE layout/champ.tt
+    nom="user_role" valeur="$valid_args.user_role"
+    label="Role" msg="$msgs.user_role" %]
+  </div>
+
+  <div class="row">
+    [%~ INCLUDE layout/champ.tt
+    nom="user_name" valeur="$valid_args.user_name"
+    label="Prénom" msg="$msgs.user_name" %]
+  </div>
+  
+  <div class="row">
+    [%~ INCLUDE layout/champ.tt
+    nom="user_lastname" valeur="$valid_args.user_lastname"
+    label="Nom" msg="$msgs.user_lastname" %]
+  </div>
+  
+  <div class="row">
+    [%~ INCLUDE layout/champ.tt
+    nom="user_mail" valeur="$valid_args.user_mail"
+    label="Mail" msg="$msgs.user_mail" %]
+  </div>
+  
+  <div class="row">
+    [%~ INCLUDE layout/champ.tt
+    nom="user_phone" valeur="$valid_args.user_phone"
+    label="Téléphone" msg="$msgs.user_phone" %]
+  </div>
+
+  <div>
+    <button class="btn btn-success" type="submit">
+      Valider
+    </button>
+  </div>
+</form>
+
  
 <p><a href="[% c.uri_for(c.controller.action_for('list')) %]">Return to book list</a></p>
