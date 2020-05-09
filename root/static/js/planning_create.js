@@ -8,7 +8,11 @@ document.getElementById("valid_week").onclick = display_sday;
 var day_id = 0;
 function display_week (){
     //hide button valid name
+<<<<<<< HEAD
     document.getElementById("valid_name").style.visibility = "hidden";
+=======
+    document.getElementById("valid_name").style.display = "none";
+>>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
     // readonly inputname
     document.getElementById("planning_name").readOnly= true;
     // dispaly section header
@@ -85,11 +89,20 @@ function display_sday(){
     document.getElementById("sday_cren").onclick = cren_sday;
     
     // remove week button 
+<<<<<<< HEAD
     document.getElementById("valid_week").style.visibility = "hidden";
+=======
+    document.getElementById("valid_week").style.display = "none";
+>>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
     // add sbay validation button and event (submit button)
     document.getElementById("valid_sday").style.display = "inline";
     // display header for Special day
     document.getElementById("main_sday_header").style.display = "inline";
+<<<<<<< HEAD
+=======
+    document.getElementById("sday_controller_header").style.display = "inline";
+    document.getElementById("sday_edition_header").style.display = "inline";
+>>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
 }
 
 
@@ -113,7 +126,11 @@ function val_sday(){
     //return the second element (first is h3 -> second is the first specail day in list)
     // use while on nodelist.item() for find id start with sday
     var sday = document.getElementById('sday_edition').childNodes[3];
+<<<<<<< HEAD
     //alert(sday.id);
+=======
+    alert(sday.id);
+>>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
     // insert sday in validated with readonly option on input
     var input = sday.getElementsByTagName('input');
     for (let e of input){
@@ -367,7 +384,11 @@ function create_sday_controller (){
 function readonly_week (){
     var main_div = document.getElementById("main_week");
     var input = main_div.getElementsByTagName("input");
+<<<<<<< HEAD
     //alert(input);
+=======
+    alert(input);
+>>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
     for (let e of input){
 	e.readOnly = true;
     }    
