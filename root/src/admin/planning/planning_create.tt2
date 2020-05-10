@@ -42,15 +42,8 @@
     <div id="sday_validated">
     </div>
     <div id="sday_controller">
-<<<<<<< HEAD
     </div>
     <div id="sday_edition">
-=======
-      <h3 id="sday_controller_header" style="display:none;">Special Day Controller</h3>
-    </div>
-    <div id="sday_edition">
-      <h3 id="sday_edition_header" style="display:none;">Special Day Editor</h3>
->>>>>>> 9459b1a0b2883a6c00fb809b8d3cb74ddfc8ea84
     </div>
   </div>
 <!--

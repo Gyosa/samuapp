@@ -69,6 +69,10 @@ sub post_form :Path('post_form') :Args(0) {
 
 }
 
+sub dfv_profile :Private {
+    my ($self, $c) = @_;
+}
+
 sub open_file ($$){
 	my ($c, $name_file) = @_;
 	# need to match with file name
